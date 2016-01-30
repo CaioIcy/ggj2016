@@ -288,7 +288,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1633638289
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 4e2775f65190bdd4fbd063233e0abb1c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 410e1151f36165a429a9fc464156d041, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -336,6 +336,7 @@ MonoBehaviour:
   following: {fileID: 0}
   ratioToSuccess: 0.8
   currentRatio: 0
+  stunDuration: 1
   stunned: 0
   turnOver: 0
 --- !u!4 &736051823
@@ -520,6 +521,7 @@ MonoBehaviour:
   btn_x: {fileID: 162138, guid: cf4fcbf3801be8646b5b01d39b0e280e, type: 2}
   btn_y: {fileID: 166646, guid: dee8d52dd8590164f9ab3470c39d479f, type: 2}
   btn_stunned: {fileID: 129376, guid: e40c9965bf4b79548a4d34fc9898102a, type: 2}
+  img_cloud: {fileID: 120180, guid: 36d8bb1519873fd458468f82d741f8bf, type: 2}
   btn_size: 20
 --- !u!4 &1065592768
 Transform:

@@ -65,6 +65,7 @@ public class PlayerTurnState : GameState {
 	private void EndTheTurn(TurnEndCheck tec) {
 		Game.Instance.TriggerWaitForTurnOver();
 		if(!Game.Instance.turnOver) {
+			Game.Instance.StopWaitForStunOver();
 			Game.Instance.objUi.helpText.text = "breathe...";
 			return;
 		}

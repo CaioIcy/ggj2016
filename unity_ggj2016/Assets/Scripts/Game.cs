@@ -68,6 +68,7 @@ public class Game : MonoBehaviour {
 	public Following following;
 	public float ratioToSuccess = 0.5f;
 	public float currentRatio = 0.0f;
+	public float stunDuration = 1.0f;
 
 	public bool stunned = false;
 
@@ -162,6 +163,7 @@ public class Game : MonoBehaviour {
 
 	public void DrawButtons(DrawId drawId) {
 		this.objUi.Clear();
+		this.objUi.Begin();
 
 		for(int i = 0; i < this.turnInfo.buttons.Count; ++i) {
 			if(i == this.turnInfo.currentIdx) {
@@ -197,13 +199,14 @@ public class Game : MonoBehaviour {
 	}
 
 	IEnumerator WaitForSecsTurnOver(float seconds) {
+		// this.objUi.ClearCloud();
 		yield return new WaitForSeconds(seconds);
 		// Game.Instance.objUi.helpText.text = "done!";
 		this.turnOver = true;
 	}
 
 	public void TriggerWaitForStun() {
-		StartCoroutine("WaitForSecsStunOver", 0.666f);		
+		StartCoroutine("WaitForSecsStunOver", this.stunDuration);
 	}
 	public void StopWaitForStunOver() {
 		StopCoroutine("WaitForSecsStunOver");

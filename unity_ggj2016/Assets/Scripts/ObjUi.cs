@@ -18,10 +18,16 @@ public class ObjUi : MonoBehaviour {
 	public GameObject btn_x;
 	public GameObject btn_y;
 	public GameObject btn_stunned;
+	public GameObject img_cloud;
 	public float btn_size = 0.0f;
 
 	private List<GameObject> list = new List<GameObject>();
 	private GameObject stunObj = null;
+	private GameObject cloudObj = null;
+
+	public void Begin() {
+		cloudObj = Instantiate(img_cloud) as GameObject;
+	}
 
 	public void Add(GameObject obj_bg, Action.ButtonId btn, bool stun=false) {
 		GameObject obj_btn = null;
@@ -44,7 +50,7 @@ public class ObjUi : MonoBehaviour {
 				break;
 		}
 		Vector3 pos = new Vector3(
-			this.transform.position.x + (this.list.Count),
+			this.transform.position.x + (this.list.Count/2)*1.2f + 5,
 			this.transform.position.y,
 			this.transform.position.z
 		);
@@ -60,11 +66,19 @@ public class ObjUi : MonoBehaviour {
 	}
 
 	public void Clear() {
+		if(cloudObj != null) {
+			Destroy(cloudObj);
+			cloudObj = null;
+		}
 		Destroy(stunObj);
 		
 		for(int i = 0; i < this.list.Count; ++i) {
 			Destroy(this.list[i]);
 		}
 		this.list.Clear();
+	}
+
+	public void ClearCloud() {
+		Destroy(cloudObj);
 	}
 }
