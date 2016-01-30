@@ -3,10 +3,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
+public enum TurnEndCheck {
+	NotYet, CompletedActions, OutOfTime
+}
+
 public class PlayerTurnState : GameState {
 
 	public override void Enter() {
-		Debug.Log("enter PlayerTurnState");
+		// Debug.Log("enter PlayerTurnState");
 		Game.Instance.objUi.helpText.text = "";
 
 		// Reset
@@ -30,7 +34,7 @@ public class PlayerTurnState : GameState {
 	}
 
 	public override void Exit() {
-		Debug.Log("exit PlayerTurnState");
+		// Debug.Log("exit PlayerTurnState");
 		Game.Instance.objUi.helpText.text = "waiting...";
 		Game.Instance.isPlayerTurn = false;
 	}
@@ -38,19 +42,29 @@ public class PlayerTurnState : GameState {
 	public override void Update() {
 		Game.Instance.turnInfo.timePerformed += Time.deltaTime;
 
-		if(IsTurnEnd()) {
-			EndTheTurn();
+		TurnEndCheck tec = GetTurnEndCheck();
+		if(tec != TurnEndCheck.NotYet) {
+			EndTheTurn(tec);
 		}
 	}
 
-	private bool IsTurnEnd() {
+	private TurnEndCheck GetTurnEndCheck() {
 		int idx = Game.Instance.turnInfo.currentIdx;
 		int expected = Game.Instance.turnInfo.numActionsExpected;
-		return (idx == expected);
+
+		if(idx == expected) {
+			return TurnEndCheck.CompletedActions;
+		}
+
+		if(Game.Instance.turnInfo.timePerformed >= Game.Instance.turnInfo.timeExpected) {
+			return TurnEndCheck.OutOfTime;
+		}
+
+		return TurnEndCheck.NotYet;
 	}
 
-	private void EndTheTurn() {
-		TurnEnd turnEnd = Game.Instance.CalculateTurnSuccess();
+	private void EndTheTurn(TurnEndCheck tec) {
+		TurnEnd turnEnd = Game.Instance.CalculateTurnSuccess(tec);
 		if(turnEnd.successful) {
 			StateManager.Instance.ChangeGameState(GameStateId.GoodTurn);
 		}

@@ -41,7 +41,6 @@ public class TurnEnd {
 }
 
 
-
 public class Game : MonoBehaviour {
 
     // Singleton pattern implementation
@@ -53,25 +52,61 @@ public class Game : MonoBehaviour {
             	GameObject obj = new GameObject();
                 Game._instance = obj.AddComponent<Game>();
                 Game._instance.objUi = GameObject.FindWithTag("objui").GetComponent<ObjUi>();
+                Game._instance.following = GameObject.FindWithTag("following").GetComponent<Following>();
+                Game._instance.shouldStateUpdate = true;
             }  
             return Game._instance;
         } 
     }
 
-	public float secondsToWait = 3.0f;
+	private bool shouldStateUpdate = false;
 	public TurnInfo turnInfo = new TurnInfo();
 	public TotalScore totalScore = new TotalScore();
 	private TurnEnd turnEnd = new TurnEnd();
 	public bool isPlayerTurn = false;
 	public ObjUi objUi;
+	public Following following;
+	public float ratioToSuccess = 0.5f;
+	public float currentRatio = 0.0f;
 
 	private void Update () {
-		StateManager.Instance.gameState.Update();
+		if(shouldStateUpdate) {
+			StateManager.Instance.gameState.Update();
+		}
 	}
 
-	public TurnEnd CalculateTurnSuccess() {
-		// implement me
+	public TurnEnd CalculateTurnSuccess(TurnEndCheck tec) {
 		this.turnEnd.successful = false;
+
+		switch(tec) {
+			// turn time is up, fill the rest of the buttons with failure
+			case TurnEndCheck.OutOfTime:
+				this.turnInfo.numActionsPerformed = this.turnInfo.numActionsExpected +
+					(this.turnInfo.numActionsExpected - this.turnInfo.numActionsPerformed);
+				// DUPLICATION (SHOULD FALLTHROUGH)
+				currentRatio = (float) this.turnInfo.numActionsExpected / (float) this.turnInfo.numActionsPerformed;
+				if(currentRatio > ratioToSuccess) {
+					this.turnEnd.successful = true;
+				}
+				break;
+
+			case TurnEndCheck.CompletedActions:
+				currentRatio = (float) this.turnInfo.numActionsExpected / (float) this.turnInfo.numActionsPerformed;
+				if(currentRatio > ratioToSuccess) {
+					this.turnEnd.successful = true;
+				}
+				break;
+			case TurnEndCheck.NotYet:
+				Debug.Log("turn hasnt ended. shouldnt calculate success");
+				Debug.Break();
+				break;
+			default:
+				Debug.Log("unknown turn end check");
+				Debug.Break();
+				break;
+		}
+
+
 		return this.turnEnd;
 	}
 
@@ -81,13 +116,14 @@ public class Game : MonoBehaviour {
 	}
 
 	public void ResetTurn() {
+		this.currentRatio = 0.0f;
 		this.turnEnd = new TurnEnd();
 
 		this.totalScore.totalActionsPerformed += this.turnInfo.numActionsPerformed;
 		this.totalScore.totalActionsExpected += this.turnInfo.numActionsExpected;
 		++this.totalScore.totalTurns;
 
-		this.turnInfo.numActionsExpected = 4; // change
+		this.turnInfo.numActionsExpected = 6; // change
 		this.turnInfo.timeExpected = 5.0f; // change
 	
 		this.turnInfo.numActionsPerformed = 0;
@@ -102,13 +138,13 @@ public class Game : MonoBehaviour {
 		DrawId drawId = DrawId.MISS;
 		// correct
 		if((Action.ButtonId)this.turnInfo.buttons[this.turnInfo.currentIdx] == btn) {
-			Debug.Log("OK(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
+			// Debug.Log("OK(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
 			++this.turnInfo.currentIdx;
 			drawId = DrawId.HIT;
 		}
 		// wrong
 		else {
-			Debug.Log("ERR(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
+			// Debug.Log("ERR(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
 			// objUi
 			drawId = DrawId.MISS;
 		}
@@ -134,5 +170,9 @@ public class Game : MonoBehaviour {
 				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
 			}
 		}
+	}
+
+	public void FirstTurn() {
+		this.following.Add(3);
 	}
 }
