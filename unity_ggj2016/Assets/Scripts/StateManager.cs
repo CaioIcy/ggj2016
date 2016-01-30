@@ -1,30 +1,51 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-
+ 
+public enum GameStateId {
+	TitleScreen, PlayerTurn,
+	GoodTurn, BadTurn,
+	Summon, Finished,
+	Summary
+}
+ 
 public class StateManager {
+ 
+    private static StateManager _instance = null;	
 
-	public enum StateId {
-		Player, Reaction
-	};
+    public GameState gameState { get; private set; }
+	private Dictionary<GameStateId, GameState> stateMap;
+    
+    protected StateManager() {}
 
-	public State currentState;
-	private Dictionary<StateId, State> stateMap;
+    // Singleton pattern implementation
+    public static StateManager Instance { 
+        get {
+            if (StateManager._instance == null) {
+                StateManager._instance = new StateManager();
+                StateManager._instance.Build();
+            }  
+            return StateManager._instance;
+        } 
+    }
 
-	public void Build(StateId initial) {
-		this.stateMap = new Dictionary<StateId, State>();
+    public void ChangeGameState(GameStateId to) {
+    	this.gameState.Exit();
+		this.gameState = this.stateMap[to];
+    	this.gameState.Enter();
+    }
 
-		this.stateMap.Add(StateId.Player, new PlayerState(this));
-		this.stateMap.Add(StateId.Reaction, new ReactionState(this));
+	private void Build() {
+		this.stateMap = new Dictionary<GameStateId, GameState>();
 
-		this.currentState = this.stateMap[initial];
-		currentState.Enter();
-	}
+		this.stateMap.Add(GameStateId.TitleScreen, new TitleScreenState());
+		this.stateMap.Add(GameStateId.PlayerTurn, new PlayerTurnState());
+		this.stateMap.Add(GameStateId.GoodTurn, new GoodTurnState());
+		this.stateMap.Add(GameStateId.BadTurn, new BadTurnState());
+		this.stateMap.Add(GameStateId.Summon, new SummonState());
+		this.stateMap.Add(GameStateId.Summary, new SummaryState());
 
-	public void ChangeState(StateId to) {
-		currentState.Exit();
-		currentState = this.stateMap[to];
-		currentState.Enter();
+		this.gameState = this.stateMap[GameStateId.TitleScreen];
+		this.gameState.Enter();
 	}
 
 }

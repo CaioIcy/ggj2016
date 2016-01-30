@@ -1,55 +1,68 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public class TotalScore {
+	public int totalActionsPerformed;
+	public int totalActionsExpected;
+
+	public TotalScore() {
+		this.totalActionsPerformed = 0;
+		this.totalActionsExpected = 0;
+	}
+}
+
+public class TurnInfo {
+	public int numActionsPerformed;
+	public int numActionsExpected;
+	public ArrayList buttons;
+
+	public TurnInfo() {
+		this.numActionsPerformed = 0;
+		this.numActionsExpected = 0;
+		this.buttons = new ArrayList();
+	}
+}
+
+public class TurnEnd {
+	public bool successful;
+
+	public TurnEnd() {
+		this.successful = false;
+	}
+}
+
 public class Game : MonoBehaviour {
 
-	public static bool playerShouldInput = false;
-	public static ArrayList buttons;
-	public static bool playerTurnOver = false;
+    // Singleton pattern implementation
+    private static Game _instance = null;	
+    protected Game() {}
+    public static Game Instance { 
+        get {
+            if (Game._instance == null) {
+            	GameObject obj = new GameObject();
+                Game._instance = obj.AddComponent<Game>();
+            }  
+            return Game._instance;
+        } 
+    }
 
-	private GameObject player;
-	private StateManager fsm;
-	private int totalInputs = 0;
-	private int currentIdx = 0;
-	// public static ArrayList types;
+	public float secondsToWait = 3.0f;
+	public TurnInfo turnInfo = new TurnInfo();
+	public TotalScore totalScore = new TotalScore();
+	private TurnEnd turnEnd = new TurnEnd();
 
-	private void Awake () {
-		player = GameObject.FindWithTag("Player");
-		Game.buttons = new ArrayList();
-		// Game.types = new ArrayList();
-
-		fsm = new StateManager();
-		fsm.Build(StateManager.StateId.Player);
-	}
-	
-	// Update is called once per frame
 	private void Update () {
-		fsm.currentState.Update();
+		StateManager.Instance.gameState.Update();
 	}
 
-	public bool PlayerAction(Action.ButtonId btn, int actionIdx) {
-		if(!(actionIdx <= buttons.Count - 1)) {
-			Debug.Log("invalid idx for btns");
-			Debug.Break();
-		}
+	public TurnEnd CalculateTurnSuccess() {
+		// implement me
+		this.turnEnd.successful = false;
+		return this.turnEnd;
+	}
 
-		++totalInputs;
-		currentIdx = actionIdx;
-
-		bool correct = false;
-		bool lastBtn = (actionIdx == buttons.Count - 1);
-
-		// correct button
-		if((Action.ButtonId)Game.buttons[actionIdx] == btn) {
-			if(lastBtn) { playerTurnOver = true; }
-			correct = true;
-		}
-		// wrong button
-		else {
-			// stall input ?
-			correct = false;
-		}
-
-		return correct;
+	public bool IsGameEnd() {
+		// implement me
+		return false;
 	}
 }
