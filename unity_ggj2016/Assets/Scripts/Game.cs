@@ -54,6 +54,7 @@ public class Game : MonoBehaviour {
                 Game._instance.objUi = GameObject.FindWithTag("objui").GetComponent<ObjUi>();
                 Game._instance.following = GameObject.FindWithTag("following").GetComponent<Following>();
                 Game._instance.shouldStateUpdate = true;
+                Game._instance.summoner = GameObject.FindWithTag("summoner").GetComponent<Summoner>();
             }  
             return Game._instance;
         } 
@@ -69,8 +70,13 @@ public class Game : MonoBehaviour {
 	public float ratioToSuccess = 0.5f;
 	public float currentRatio = 0.0f;
 	public float stunDuration = 1.0f;
-
+	public Summoner summoner;
 	public bool stunned = false;
+
+	// difficultyModifier == 1.0f __ no change
+	// difficultyModifier <  1.0f __ increase ratio (easier)
+	// difficultyModifier >  1.0f __ decrease ratio (harder)
+	public float difficultyModifier = 1.0f;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
@@ -85,17 +91,26 @@ public class Game : MonoBehaviour {
 		switch(tec) {
 			// turn time is up, fill the rest of the buttons with failure
 			case TurnEndCheck.OutOfTime:
-				this.turnInfo.numActionsPerformed = this.turnInfo.numActionsExpected +
-					(this.turnInfo.numActionsExpected - this.turnInfo.numActionsPerformed);
-				// DUPLICATION (SHOULD FALLTHROUGH)
-				currentRatio = (float) this.turnInfo.numActionsExpected / (float) this.turnInfo.numActionsPerformed;
-				if(currentRatio > ratioToSuccess) {
-					this.turnEnd.successful = true;
-				}
-				break;
-
+				// fallthrough
+				goto case TurnEndCheck.CompletedActions;
 			case TurnEndCheck.CompletedActions:
-				currentRatio = (float) this.turnInfo.numActionsExpected / (float) this.turnInfo.numActionsPerformed;
+				float CCC = (float) this.turnInfo.currentIdx;
+				float EEE = (float) this.turnInfo.numActionsExpected;
+				float PPP = (float) this.turnInfo.numActionsPerformed;
+				float ratioTop = CCC;
+				float ratioBottom = 0.0f;
+				if(this.turnInfo.numActionsExpected > this.turnInfo.numActionsPerformed) {
+					ratioBottom = EEE + (EEE - PPP);
+				}
+				else {
+					ratioBottom = EEE + (PPP - EEE);
+				}
+				ratioBottom *= difficultyModifier;
+
+				currentRatio = ratioTop / ratioBottom;
+
+				// Debug.Log("e." + EEE + " -- p." + PPP + " -- c." + CCC);
+				// Debug.Log("ratio: " + currentRatio + " = " + ratioTop + " / " + ratioBottom);
 				if(currentRatio > ratioToSuccess) {
 					this.turnEnd.successful = true;
 				}
@@ -110,13 +125,13 @@ public class Game : MonoBehaviour {
 				break;
 		}
 
-
 		return this.turnEnd;
 	}
 
 	public bool IsGameEnd() {
-		// implement me
-		return false;
+		bool turnsLimitReached = (this.totalScore.totalTurns >= 5);
+		bool outOfFollowers = (this.following.Size() <= 0);
+		return (turnsLimitReached || outOfFollowers);
 	}
 
 	public void ResetTurn() {
@@ -156,7 +171,7 @@ public class Game : MonoBehaviour {
 			// objUi
 			drawId = DrawId.MISS;
 			this.stunned = true;
-			this.objUi.helpText.text = "MISS! STUNNED";
+			this.SetText("MISS! STUNNED");
 		}
 		DrawButtons(drawId);
 	}
@@ -201,7 +216,7 @@ public class Game : MonoBehaviour {
 	IEnumerator WaitForSecsTurnOver(float seconds) {
 		// this.objUi.ClearCloud();
 		yield return new WaitForSeconds(seconds);
-		// Game.Instance.objUi.helpText.text = "done!";
+		// Game.Instance.SetText("done!");
 		this.turnOver = true;
 	}
 
@@ -213,10 +228,10 @@ public class Game : MonoBehaviour {
 	}
 
 	IEnumerator WaitForSecsStunOver(float seconds) {
-		this.objUi.helpText.text = "stunned";
+		this.SetText("stunned");
 		yield return new WaitForSeconds(seconds);
 		CancelStun();
-		this.objUi.helpText.text = "go";
+		this.SetText("go");
 	}
 
 	public void CancelStun() {
@@ -224,4 +239,16 @@ public class Game : MonoBehaviour {
 		DrawButtons(DrawId.NEUTRAL);
 	}
 
+	public void PlaySummonAnimation() {
+		GameObject summonObj = this.GetSummonBasedOnPoints();
+		Instantiate(summonObj);
+	}
+
+	private GameObject GetSummonBasedOnPoints() {
+		return this.summoner.summons[0];
+	}
+
+	public void SetText(string str) {
+		this.objUi.helpText.text = str;
+	}
 }

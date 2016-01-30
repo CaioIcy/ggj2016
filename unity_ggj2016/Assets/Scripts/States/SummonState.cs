@@ -4,10 +4,11 @@ using System.Collections;
 public class SummonState : GameState {
 	public override void Enter() {
 		Debug.Log("enter summon");
+		Game.Instance.PlaySummonAnimation();
+		Game.Instance.SetText("summoning");
 	}
 
 	public override void Exit() {
-		Debug.Log("exit summon");
 	}
 
 	public override void Update() {
@@ -18,6 +19,7 @@ public class SummonState : GameState {
 
 	private bool IsDone() {
 		// implement me
+		// done playing summon animation?
 		return false;
 	}
 }

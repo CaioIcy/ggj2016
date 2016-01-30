@@ -304,6 +304,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+--- !u!1 &607380939
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 607380940}
+  - 114: {fileID: 607380941}
+  m_Layer: 0
+  m_Name: Summoner
+  m_TagString: summoner
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &607380940
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 607380939}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+--- !u!114 &607380941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 607380939}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211c9b284ba877d46866524aeb3a0039, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summons:
+  - {fileID: 155206, guid: 3e593f026f729e94aaa9a8e693dc077a, type: 2}
 --- !u!1 &736051821
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,6 +378,7 @@ MonoBehaviour:
   ratioToSuccess: 0.8
   currentRatio: 0
   stunDuration: 1
+  summoner: {fileID: 0}
   stunned: 0
   turnOver: 0
 --- !u!4 &736051823

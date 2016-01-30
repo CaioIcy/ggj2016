@@ -6,7 +6,7 @@ TagManager:
   tags:
   - objui
   - following
-  - stunned
+  - summoner
   layers:
   - Default
   - TransparentFX
