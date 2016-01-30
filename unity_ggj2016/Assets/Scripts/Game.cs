@@ -18,7 +18,11 @@ public class Game : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	private void Update () {
 		fsm.currentState.Update();
+	}
+
+	public void PlayerAction(Action.ButtonId btn) {
+		Debug.Log(btn);
 	}
 }

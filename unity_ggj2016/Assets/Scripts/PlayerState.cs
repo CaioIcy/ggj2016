@@ -31,9 +31,9 @@ public class PlayerState : State {
 			Debug.Break();
 		}
 
-		for(int i = 0; i < Game.buttons.Count; ++i) {
-			Debug.Log(Game.buttons[i] + " -- " + Game.types[i]);
-		}
+		// for(int i = 0; i < Game.buttons.Count; ++i) {
+			// Debug.Log(Game.buttons[i] + " -- " + Game.types[i]);
+		// }
 
 	}
 
