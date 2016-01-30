@@ -138,8 +138,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 138376440}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.12, y: 0.10543132, z: 0}
-  m_LocalScale: {x: 2.61, y: 4.22, z: 1}
+  m_LocalPosition: {x: 0.28, y: -0.45, z: 0}
+  m_LocalScale: {x: 4.41, y: 5.61, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 1980459831, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -206,7 +206,7 @@ Canvas:
   m_GameObject: {fileID: 164893896}
   m_Enabled: 1
   serializedVersion: 2
-  m_RenderMode: 1
+  m_RenderMode: 0
   m_Camera: {fileID: 1150695521}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -299,8 +299,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 325985698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.95, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.2, y: 1.37, z: 0}
+  m_LocalScale: {x: 1.39, y: 1.27, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -432,13 +432,13 @@ RectTransform:
   m_GameObject: {fileID: 918827107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children: []
   m_Father: {fileID: 164893900}
   m_RootOrder: 0
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 255, y: -224}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -145, y: 1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &918827109
@@ -462,20 +462,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
-    m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 10
-    m_MaxSize: 40
+    m_FontSize: 26
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 256
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Buttons:
-
-'
+  m_Text: "\u25BA"
 --- !u!222 &918827110
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -517,6 +515,7 @@ MonoBehaviour:
   btn_b: {fileID: 197596, guid: ce5cd86aa4b25fe42a487479769785c6, type: 2}
   btn_x: {fileID: 162138, guid: cf4fcbf3801be8646b5b01d39b0e280e, type: 2}
   btn_y: {fileID: 166646, guid: dee8d52dd8590164f9ab3470c39d479f, type: 2}
+  btn_size: 20
 --- !u!4 &1065592768
 Transform:
   m_ObjectHideFlags: 0
@@ -626,7 +625,7 @@ GameObject:
   - 4: {fileID: 1885346204}
   - 212: {fileID: 1885346203}
   m_Layer: 0
-  m_Name: background
+  m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

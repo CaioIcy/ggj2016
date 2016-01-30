@@ -7,6 +7,7 @@ public class PlayerTurnState : GameState {
 
 	public override void Enter() {
 		Debug.Log("enter PlayerTurnState");
+		Game.Instance.objUi.helpText.text = "";
 
 		// Reset
 		Game.Instance.ResetTurn();

@@ -118,24 +118,19 @@ public class Game : MonoBehaviour {
 	public void DrawButtons(DrawId drawId) {
 		this.objUi.Clear();
 
-		this.objUi.helpText.text = "BTNS: ";
 		for(int i = 0; i < this.turnInfo.buttons.Count; ++i) {
 			if(i == this.turnInfo.currentIdx) {
 				if(drawId == DrawId.MISS) {
-					this.objUi.helpText.text += " {<color=#800000ff>" + this.turnInfo.buttons[i] + "</color>}";
-					this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
+					this.objUi.Add(this.objUi.btn_bg_red, (Action.ButtonId)this.turnInfo.buttons[i]);
 				}
 				else {
-					this.objUi.helpText.text += " [" + this.turnInfo.buttons[i] + "]";					
 					this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
 				}
 			}
 			else if (i < this.turnInfo.currentIdx){
-				this.objUi.helpText.text += " |" + this.turnInfo.buttons[i] + "|";
-				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
+				this.objUi.Add(this.objUi.btn_bg_green, (Action.ButtonId)this.turnInfo.buttons[i]);
 			}
 			else if (i > this.turnInfo.currentIdx){
-				this.objUi.helpText.text += " " + this.turnInfo.buttons[i];
 				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
 			}
 		}

@@ -42,7 +42,7 @@ public class ObjUi : MonoBehaviour {
 				break;
 		}
 		Vector3 pos = new Vector3(
-			this.transform.position.x,// + (this.list.Count * btn_size),
+			this.transform.position.x + (this.list.Count),
 			this.transform.position.y,
 			this.transform.position.z
 		);
