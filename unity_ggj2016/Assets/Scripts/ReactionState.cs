@@ -18,7 +18,7 @@ public class ReactionState : State {
 	}
 
 	public override void Update() {
-		Debug.Log("update reaction " + totalTime + " -- " + timeToChange);
+		// Debug.Log("update reaction " + totalTime + " -- " + timeToChange);
 		totalTime += Time.deltaTime;
 
 		if(totalTime >= timeToChange) {
