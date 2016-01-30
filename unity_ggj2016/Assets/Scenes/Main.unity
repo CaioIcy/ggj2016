@@ -85,33 +85,6 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualCellSize: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &104487777
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 104487778}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &104487778
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 104487777}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.85, y: -4.7, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
 --- !u!1 &138376440
 GameObject:
   m_ObjectHideFlags: 0
@@ -358,10 +331,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6e1f85b3f9fac846b8a79d027e68aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsToWait: 3
   isPlayerTurn: 0
   objUi: {fileID: 0}
   following: {fileID: 0}
+  ratioToSuccess: 0.8
+  currentRatio: 0
+  stunned: 0
+  turnOver: 0
 --- !u!4 &736051823
 Transform:
   m_ObjectHideFlags: 0
@@ -543,6 +519,7 @@ MonoBehaviour:
   btn_b: {fileID: 197596, guid: ce5cd86aa4b25fe42a487479769785c6, type: 2}
   btn_x: {fileID: 162138, guid: cf4fcbf3801be8646b5b01d39b0e280e, type: 2}
   btn_y: {fileID: 166646, guid: dee8d52dd8590164f9ab3470c39d479f, type: 2}
+  btn_stunned: {fileID: 129376, guid: e40c9965bf4b79548a4d34fc9898102a, type: 2}
   btn_size: 20
 --- !u!4 &1065592768
 Transform:

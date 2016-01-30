@@ -17,11 +17,13 @@ public class ObjUi : MonoBehaviour {
 	public GameObject btn_b;
 	public GameObject btn_x;
 	public GameObject btn_y;
+	public GameObject btn_stunned;
 	public float btn_size = 0.0f;
 
 	private List<GameObject> list = new List<GameObject>();
+	private GameObject stunObj = null;
 
-	public void Add(GameObject obj_bg, Action.ButtonId btn) {
+	public void Add(GameObject obj_bg, Action.ButtonId btn, bool stun=false) {
 		GameObject obj_btn = null;
 		switch(btn) {
 			case Action.ButtonId.A:
@@ -51,9 +53,15 @@ public class ObjUi : MonoBehaviour {
 
 		this.list.Add(gObj_bg);
 		this.list.Add(gObj_btn);
+
+		if(stun) {
+			stunObj = Instantiate(btn_stunned, pos, Quaternion.identity) as GameObject;
+		}
 	}
 
 	public void Clear() {
+		Destroy(stunObj);
+		
 		for(int i = 0; i < this.list.Count; ++i) {
 			Destroy(this.list[i]);
 		}

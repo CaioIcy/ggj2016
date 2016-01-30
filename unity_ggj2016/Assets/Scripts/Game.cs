@@ -69,6 +69,8 @@ public class Game : MonoBehaviour {
 	public float ratioToSuccess = 0.5f;
 	public float currentRatio = 0.0f;
 
+	public bool stunned = false;
+
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
 		if(shouldStateUpdate) {
@@ -129,7 +131,7 @@ public class Game : MonoBehaviour {
 		++this.totalScore.totalTurns;
 
 		this.turnInfo.numActionsExpected = 6; // change
-		this.turnInfo.timeExpected = 2.0f; // change
+		this.turnInfo.timeExpected = 5.0f; // change
 	
 		this.turnInfo.numActionsPerformed = 0;
 		this.turnInfo.timePerformed = 0.0f;
@@ -152,6 +154,8 @@ public class Game : MonoBehaviour {
 			// Debug.Log("ERR(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
 			// objUi
 			drawId = DrawId.MISS;
+			this.stunned = true;
+			this.objUi.helpText.text = "MISS! STUNNED";
 		}
 		DrawButtons(drawId);
 	}
@@ -162,7 +166,7 @@ public class Game : MonoBehaviour {
 		for(int i = 0; i < this.turnInfo.buttons.Count; ++i) {
 			if(i == this.turnInfo.currentIdx) {
 				if(drawId == DrawId.MISS) {
-					this.objUi.Add(this.objUi.btn_bg_red, (Action.ButtonId)this.turnInfo.buttons[i]);
+					this.objUi.Add(this.objUi.btn_bg_red, (Action.ButtonId)this.turnInfo.buttons[i], true);
 				}
 				else {
 					this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
@@ -184,18 +188,33 @@ public class Game : MonoBehaviour {
 	public bool turnOver = false;
 	public bool TriggerWaitForTurnOver() {
 		this.isPlayerTurn = false;
-		StartCoroutine("WaitForSecs", 2.0f);
+		StartCoroutine("WaitForSecsTurnOver", 2.0f);
 		return this.turnOver;
 	}
 
 	public void StopWaitForTurnOver() {
-		StopCoroutine("WaitForSecs");
+		StopCoroutine("WaitForSecsTurnOver");
 	}
 
-	IEnumerator WaitForSecs(float seconds) {
+	IEnumerator WaitForSecsTurnOver(float seconds) {
 		yield return new WaitForSeconds(seconds);
 		// Game.Instance.objUi.helpText.text = "done!";
 		this.turnOver = true;
+	}
+
+	public void TriggerWaitForStun() {
+		StartCoroutine("WaitForSecsStunOver", 0.666f);		
+	}
+	public void StopWaitForStunOver() {
+		StopCoroutine("WaitForSecsStunOver");
+	}
+
+	IEnumerator WaitForSecsStunOver(float seconds) {
+		this.objUi.helpText.text = "stunned";
+		yield return new WaitForSeconds(seconds);
+		this.stunned = false;
+		this.objUi.helpText.text = "go";
+		DrawButtons(DrawId.NEUTRAL);
 	}
 
 }
