@@ -62,6 +62,7 @@ public class Game : MonoBehaviour {
 	public TurnInfo turnInfo = new TurnInfo();
 	public TotalScore totalScore = new TotalScore();
 	private TurnEnd turnEnd = new TurnEnd();
+	public bool isPlayerTurn = false;
 	public ObjUi objUi;
 
 	private void Update () {
@@ -100,12 +101,21 @@ public class Game : MonoBehaviour {
 		++this.turnInfo.numActionsPerformed;
 		// correct
 		if((Action.ButtonId)this.turnInfo.buttons[this.turnInfo.currentIdx] == btn) {
-			Debug.Log("OK("+this.turnInfo.numActionsPerformed+")! " + btn + " on idx " + this.turnInfo.currentIdx);
+			Debug.Log("OK(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
 			++this.turnInfo.currentIdx;
 		}
 		// wrong
 		else {
-			Debug.Log("ERR("+this.turnInfo.numActionsPerformed+")! " + btn + " on idx " + this.turnInfo.currentIdx);
+			Debug.Log("ERR(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
+			// objUi
+		}
+		DrawButtons();
+	}
+
+	public void DrawButtons() {
+		this.objUi.helpText.text = "BTNS: ";
+		for(int i = this.turnInfo.currentIdx; i < this.turnInfo.buttons.Count; ++i) {
+			this.objUi.helpText.text += " " + this.turnInfo.buttons[i];
 		}
 	}
 }

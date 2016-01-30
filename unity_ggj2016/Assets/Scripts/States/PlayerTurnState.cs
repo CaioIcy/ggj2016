@@ -8,7 +8,11 @@ public class PlayerTurnState : GameState {
 	public override void Enter() {
 		Debug.Log("enter PlayerTurnState");
 
+		// Reset
+		Game.Instance.ResetTurn();
+
 		// Generate random actions
+
 		for(int i = 0; i < Game.Instance.turnInfo.numActionsExpected; ++i) {
 			Action.ButtonId randomButton = (Action.ButtonId) UnityEngine.Random.Range(
 				0, Enum.GetValues(typeof(Action.ButtonId)).Length
@@ -16,17 +20,18 @@ public class PlayerTurnState : GameState {
 			Game.Instance.turnInfo.buttons.Add(randomButton);
 		}
 
-		Game.Instance.objUi.helpText.text = "Enter Player State";
 
 		// Draw actions
-		// ?
+		Game.Instance.DrawButtons();
+
+
+		Game.Instance.isPlayerTurn = true;
 	}
 
 	public override void Exit() {
 		Debug.Log("exit PlayerTurnState");
-		Game.Instance.objUi.helpText.text = "Exit Player State";
-		// Reset
-		Game.Instance.ResetTurn();
+		Game.Instance.objUi.helpText.text = "waiting...";
+		Game.Instance.isPlayerTurn = false;
 	}
 
 	public override void Update() {
@@ -35,28 +40,12 @@ public class PlayerTurnState : GameState {
 		if(IsTurnEnd()) {
 			EndTheTurn();
 		}
-
-		CheckInput();
-	}
-
-	private void CheckInput() {
-		if(Input.GetKeyDown(KeyCode.H)) {
-			Game.Instance.ReceiveAction(Action.ButtonId.A);
-		}
-		else if(Input.GetKeyDown(KeyCode.J)) {
-			Game.Instance.ReceiveAction(Action.ButtonId.B);
-		}
-		else if(Input.GetKeyDown(KeyCode.K)) {
-			Game.Instance.ReceiveAction(Action.ButtonId.X);
-		}
-		else if(Input.GetKeyDown(KeyCode.L)) {
-			Game.Instance.ReceiveAction(Action.ButtonId.Y);
-		}
 	}
 
 	private bool IsTurnEnd() {
-		// implement me
-		return false;
+		int idx = Game.Instance.turnInfo.currentIdx;
+		int expected = Game.Instance.turnInfo.numActionsExpected;
+		return (idx == expected);
 	}
 
 	private void EndTheTurn() {
