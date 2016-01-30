@@ -67,16 +67,9 @@ public class Game : MonoBehaviour {
 	public bool isPlayerTurn = false;
 	public ObjUi objUi;
 	public Following following;
-	public float ratioToSuccess = 0.5f;
 	public float currentRatio = 0.0f;
-	public float stunDuration = 1.0f;
 	public Summoner summoner;
 	public bool stunned = false;
-
-	// difficultyModifier == 1.0f __ no change
-	// difficultyModifier <  1.0f __ increase ratio (easier)
-	// difficultyModifier >  1.0f __ decrease ratio (harder)
-	public float difficultyModifier = 1.0f;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
@@ -99,19 +92,25 @@ public class Game : MonoBehaviour {
 				float PPP = (float) this.turnInfo.numActionsPerformed;
 				float ratioTop = CCC;
 				float ratioBottom = 0.0f;
+				// E > P
 				if(this.turnInfo.numActionsExpected > this.turnInfo.numActionsPerformed) {
 					ratioBottom = EEE + (EEE - PPP);
 				}
-				else {
-					ratioBottom = EEE + (PPP - EEE);
+				// E < P
+				else if (this.turnInfo.numActionsExpected < this.turnInfo.numActionsPerformed){
+					ratioBottom = EEE + (PPP - EEE) * Difficulty.imperfectModifier;
 				}
-				ratioBottom *= difficultyModifier;
+				// E == P
+				else {
+					ratioBottom = EEE;
+				}
+				ratioBottom *= Difficulty.ratioModifier;
 
 				currentRatio = ratioTop / ratioBottom;
 
-				// Debug.Log("e." + EEE + " -- p." + PPP + " -- c." + CCC);
-				// Debug.Log("ratio: " + currentRatio + " = " + ratioTop + " / " + ratioBottom);
-				if(currentRatio > ratioToSuccess) {
+				Debug.Log("e." + EEE + " -- p." + PPP + " -- c." + CCC);
+				Debug.Log("ratio: " + currentRatio + " = " + ratioTop + " / " + ratioBottom);
+				if(currentRatio > Difficulty.ratioToSuccess) {
 					this.turnEnd.successful = true;
 				}
 				break;
@@ -221,7 +220,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void TriggerWaitForStun() {
-		StartCoroutine("WaitForSecsStunOver", this.stunDuration);
+		StartCoroutine("WaitForSecsStunOver", Difficulty.stunDuration);
 	}
 	public void StopWaitForStunOver() {
 		StopCoroutine("WaitForSecsStunOver");
