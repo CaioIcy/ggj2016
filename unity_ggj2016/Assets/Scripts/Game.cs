@@ -215,8 +215,12 @@ public class Game : MonoBehaviour {
 	IEnumerator WaitForSecsStunOver(float seconds) {
 		this.objUi.helpText.text = "stunned";
 		yield return new WaitForSeconds(seconds);
-		this.stunned = false;
+		CancelStun();
 		this.objUi.helpText.text = "go";
+	}
+
+	public void CancelStun() {
+		this.stunned = false;
 		DrawButtons(DrawId.NEUTRAL);
 	}
 

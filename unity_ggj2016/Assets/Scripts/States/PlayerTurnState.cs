@@ -66,6 +66,7 @@ public class PlayerTurnState : GameState {
 		Game.Instance.TriggerWaitForTurnOver();
 		if(!Game.Instance.turnOver) {
 			Game.Instance.StopWaitForStunOver();
+			Game.Instance.CancelStun();
 			Game.Instance.objUi.helpText.text = "breathe...";
 			return;
 		}

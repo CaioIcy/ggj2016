@@ -437,7 +437,7 @@ RectTransform:
   m_GameObject: {fileID: 918827107}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 164893900}
   m_RootOrder: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u25BA"
+  m_Text: "\u25BA any key"
 --- !u!222 &918827110
 CanvasRenderer:
   m_ObjectHideFlags: 0
