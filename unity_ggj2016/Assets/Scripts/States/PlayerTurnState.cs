@@ -10,7 +10,6 @@ public enum TurnEndCheck {
 public class PlayerTurnState : GameState {
 
 	public override void Enter() {
-		// Debug.Log("enter PlayerTurnState");
 		Game.Instance.objUi.helpText.text = "";
 
 		// Reset
@@ -28,15 +27,15 @@ public class PlayerTurnState : GameState {
 
 		// Draw actions
 		Game.Instance.DrawButtons(DrawId.NEUTRAL);
-
-
 		Game.Instance.isPlayerTurn = true;
+		Debug.Log("enter player turn with " + Game.Instance.following.Size() + " followers");
 	}
 
 	public override void Exit() {
 		// Debug.Log("exit PlayerTurnState");
 		Game.Instance.objUi.helpText.text = "waiting...";
 		Game.Instance.isPlayerTurn = false;
+		Game.Instance.turnOver = false;
 	}
 
 	public override void Update() {
@@ -64,6 +63,13 @@ public class PlayerTurnState : GameState {
 	}
 
 	private void EndTheTurn(TurnEndCheck tec) {
+		Game.Instance.TriggerWaitForTurnOver();
+		if(!Game.Instance.turnOver) {
+			// Game.Instance.objUi.helpText.text = "breathe...";
+			return;
+		}
+
+		Game.Instance.StopWaitForTurnOver();
 		TurnEnd turnEnd = Game.Instance.CalculateTurnSuccess(tec);
 		if(turnEnd.successful) {
 			StateManager.Instance.ChangeGameState(GameStateId.GoodTurn);

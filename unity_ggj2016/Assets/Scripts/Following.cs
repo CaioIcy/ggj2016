@@ -36,12 +36,29 @@ public class Following : MonoBehaviour {
 		}
 	}
 
+	public void Remove(int amount) {
+		if(amount >= this.list.Count) {
+			Debug.Log("no more followers | gameover/go to summon");
+			Debug.Break();
+		}
+
+		for(int i = 0; i < amount; ++i) {
+			int idx = (int) Random.Range(0, this.list.Count-1);
+			Destroy(this.list[idx]);
+			this.list.RemoveAt(idx);
+		}
+	}
+
 	public void Clear() {
 		Debug.Log("clear following");
 		for(int i = 0; i < this.list.Count; ++i) {
 			Destroy(this.list[i]);
 		}
 		this.list.Clear();
+	}
+
+	public int Size() {
+		return this.list.Count;
 	}
 
 	private int RandomSign() {

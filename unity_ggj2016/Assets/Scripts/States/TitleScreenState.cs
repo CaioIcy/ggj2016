@@ -14,7 +14,6 @@ public class TitleScreenState : GameState {
 	public override void Update() {
 		if(Input.anyKeyDown) {
 			StateManager.Instance.ChangeGameState(GameStateId.PlayerTurn);
-			Game.Instance.FirstTurn();
 		}
 	}
 }

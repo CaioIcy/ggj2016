@@ -70,6 +70,7 @@ public class Game : MonoBehaviour {
 	public float currentRatio = 0.0f;
 
 	private void Update () {
+		// due to the singleton, there are two updates for game running :v
 		if(shouldStateUpdate) {
 			StateManager.Instance.gameState.Update();
 		}
@@ -116,6 +117,10 @@ public class Game : MonoBehaviour {
 	}
 
 	public void ResetTurn() {
+		if(this.totalScore.totalTurns == 0) {
+			Game.Instance.FirstTurn();
+		}
+
 		this.currentRatio = 0.0f;
 		this.turnEnd = new TurnEnd();
 
@@ -124,7 +129,7 @@ public class Game : MonoBehaviour {
 		++this.totalScore.totalTurns;
 
 		this.turnInfo.numActionsExpected = 6; // change
-		this.turnInfo.timeExpected = 5.0f; // change
+		this.turnInfo.timeExpected = 2.0f; // change
 	
 		this.turnInfo.numActionsPerformed = 0;
 		this.turnInfo.timePerformed = 0.0f;
@@ -173,6 +178,24 @@ public class Game : MonoBehaviour {
 	}
 
 	public void FirstTurn() {
-		this.following.Add(3);
+		this.following.Add(6);
 	}
+
+	public bool turnOver = false;
+	public bool TriggerWaitForTurnOver() {
+		this.isPlayerTurn = false;
+		StartCoroutine("WaitForSecs", 2.0f);
+		return this.turnOver;
+	}
+
+	public void StopWaitForTurnOver() {
+		StopCoroutine("WaitForSecs");
+	}
+
+	IEnumerator WaitForSecs(float seconds) {
+		yield return new WaitForSeconds(seconds);
+		// Game.Instance.objUi.helpText.text = "done!";
+		this.turnOver = true;
+	}
+
 }

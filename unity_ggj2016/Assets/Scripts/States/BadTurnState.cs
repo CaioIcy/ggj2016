@@ -4,10 +4,12 @@ using System.Collections;
 public class BadTurnState : GameState {
 	public override void Enter() {
 		Debug.Log("enter bad turn");
+		// play bad animation
+		Game.Instance.following.Remove(3);
 	}
 
 	public override void Exit() {
-		Debug.Log("exit bad turn");
+		// ?
 	}
 
 	public override void Update() {
@@ -23,6 +25,6 @@ public class BadTurnState : GameState {
 
 	private bool IsDone() {
 		// implement me
-		return false;
+		return true;
 	}
 }
