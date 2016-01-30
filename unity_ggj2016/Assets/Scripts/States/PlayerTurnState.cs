@@ -22,7 +22,7 @@ public class PlayerTurnState : GameState {
 
 
 		// Draw actions
-		Game.Instance.DrawButtons();
+		Game.Instance.DrawButtons(DrawId.NEUTRAL);
 
 
 		Game.Instance.isPlayerTurn = true;

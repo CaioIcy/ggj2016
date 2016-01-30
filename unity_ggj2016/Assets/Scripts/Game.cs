@@ -99,23 +99,39 @@ public class Game : MonoBehaviour {
 
 	public void ReceiveAction(Action.ButtonId btn) {
 		++this.turnInfo.numActionsPerformed;
+		DrawId drawId = DrawId.MISS;
 		// correct
 		if((Action.ButtonId)this.turnInfo.buttons[this.turnInfo.currentIdx] == btn) {
 			Debug.Log("OK(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
 			++this.turnInfo.currentIdx;
+			drawId = DrawId.HIT;
 		}
 		// wrong
 		else {
 			Debug.Log("ERR(" + this.turnInfo.numActionsPerformed + ")! " + btn + " idx " + this.turnInfo.currentIdx);
 			// objUi
+			drawId = DrawId.MISS;
 		}
-		DrawButtons();
+		DrawButtons(drawId);
 	}
 
-	public void DrawButtons() {
+	public void DrawButtons(DrawId drawId) {
 		this.objUi.helpText.text = "BTNS: ";
-		for(int i = this.turnInfo.currentIdx; i < this.turnInfo.buttons.Count; ++i) {
-			this.objUi.helpText.text += " " + this.turnInfo.buttons[i];
+		for(int i = 0; i < this.turnInfo.buttons.Count; ++i) {
+			if(i == this.turnInfo.currentIdx) {
+				if(drawId == DrawId.MISS) {
+					this.objUi.helpText.text += " {" + this.turnInfo.buttons[i] + "}";
+				}
+				else {
+					this.objUi.helpText.text += " [" + this.turnInfo.buttons[i] + "]";					
+				}
+			}
+			else if (i < this.turnInfo.currentIdx){
+				this.objUi.helpText.text += " " + this.turnInfo.buttons[i];				
+			}
+			else if (i > this.turnInfo.currentIdx){
+				this.objUi.helpText.text += " " + this.turnInfo.buttons[i];
+			}
 		}
 	}
 }
