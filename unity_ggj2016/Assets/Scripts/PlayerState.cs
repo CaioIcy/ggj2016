@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 public class PlayerState : State {
 
-	public float timeToChange = 2.0f;
+	public float timeToChange = 10.0f;
 	public float totalTime = 0.0f;
 	public int numActions = 4;
 
@@ -20,37 +20,43 @@ public class PlayerState : State {
 			);
 			Game.buttons.Add(randomButton);
 
-			Action.TypeId randomType = (Action.TypeId) UnityEngine.Random.Range(
-				0, Enum.GetValues(typeof(Action.TypeId)).Length
-			);
-			Game.types.Add(randomType);
+			// Action.TypeId randomType = (Action.TypeId) UnityEngine.Random.Range(
+				// 0, Enum.GetValues(typeof(Action.TypeId)).Length
+			// );
+			// Game.types.Add(randomType);
 		}
 
-		if(Game.buttons.Count != Game.types.Count) {
-			Debug.Log("btns length should be equal to typs length");
-			Debug.Break();
-		}
-
-		// for(int i = 0; i < Game.buttons.Count; ++i) {
-			// Debug.Log(Game.buttons[i] + " -- " + Game.types[i]);
+		// if(Game.buttons.Count != Game.types.Count) {
+			// Debug.Log("btns length should be equal to typs length");
+			// Debug.Break();
 		// }
+		Game.playerShouldInput = true;
 
+		Painter.Create();
 	}
 
 	public override void Exit() {
+		Game.playerShouldInput = false;
+		Game.playerTurnOver = false;
 		Debug.Log("exit PlayerState");
 		totalTime = 0.0f;
 		Game.buttons.Clear();
-		Game.types.Clear();
+		// Game.types.Clear();
+		Painter.Clear();
 	}
 
 	public override void Update() {
 		// Debug.Log("update player " + totalTime + " -- " + timeToChange);
 		totalTime += Time.deltaTime;
 
+		if(Game.playerTurnOver) {
+			this.fsm.ChangeState(StateManager.StateId.Reaction);
+		}
+
 		if(totalTime >= timeToChange) {
 			this.fsm.ChangeState(StateManager.StateId.Reaction);
 		}
+
 	}
 
 }

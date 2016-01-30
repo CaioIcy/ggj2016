@@ -12,17 +12,27 @@ public class Player : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.H)) { // A
-			gameController.PlayerAction(Action.ButtonId.A);
+		if(Game.playerShouldInput) {
+			bool success = false;
+			if(Input.GetKeyDown(KeyCode.H)) { // A
+				success = gameController.PlayerAction(Action.ButtonId.A, currentActionsIndex);
+			}
+			else if(Input.GetKeyDown(KeyCode.J)) { // B
+				success = gameController.PlayerAction(Action.ButtonId.B, currentActionsIndex);
+			}
+			else if(Input.GetKeyDown(KeyCode.K)) { // X
+				success = gameController.PlayerAction(Action.ButtonId.X, currentActionsIndex);
+			}
+			else if(Input.GetKeyDown(KeyCode.L)) { // Y
+				success = gameController.PlayerAction(Action.ButtonId.Y, currentActionsIndex);
+			}
+
+			if(success) {
+				++currentActionsIndex;
+			}
 		}
-		else if(Input.GetKeyDown(KeyCode.J)) { // B
-			gameController.PlayerAction(Action.ButtonId.B);
-		}
-		else if(Input.GetKeyDown(KeyCode.K)) { // X
-			gameController.PlayerAction(Action.ButtonId.X);
-		}
-		else if(Input.GetKeyDown(KeyCode.L)) { // Y
-			gameController.PlayerAction(Action.ButtonId.Y);
+		else {
+			currentActionsIndex = 0;
 		}
 	}
 }
