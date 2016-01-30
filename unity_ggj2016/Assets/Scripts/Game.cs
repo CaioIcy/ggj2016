@@ -6,11 +6,13 @@ public class TotalScore {
 	public int totalActionsPerformed;
 	public int totalActionsExpected;
 	public int totalTurns;
+	public float sumRatio;
 
 	public TotalScore() {
 		this.totalActionsPerformed = 0;
 		this.totalActionsExpected = 0;
 		this.totalTurns = 0;
+		this.sumRatio = 0.0f;
 	}
 }
 
@@ -39,6 +41,10 @@ public class TurnEnd {
 		this.successful = false;
 	}
 }
+
+public enum GameEndType {
+	NotYet, NoFollowers, TurnLimitReached
+};
 
 
 public class Game : MonoBehaviour {
@@ -70,6 +76,7 @@ public class Game : MonoBehaviour {
 	public float currentRatio = 0.0f;
 	public Summoner summoner;
 	public bool stunned = false;
+	public GameEndType gameEndType = GameEndType.NotYet;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
@@ -108,8 +115,9 @@ public class Game : MonoBehaviour {
 
 				currentRatio = ratioTop / ratioBottom;
 
-				Debug.Log("e." + EEE + " -- p." + PPP + " -- c." + CCC);
-				Debug.Log("ratio: " + currentRatio + " = " + ratioTop + " / " + ratioBottom);
+				// Debug.Log("e." + EEE + " -- p." + PPP + " -- c." + CCC);
+				// Debug.Log("ratio: " + currentRatio + " = " + ratioTop + " / " + ratioBottom);
+				Debug.Log("ratio: " + currentRatio);
 				if(currentRatio > Difficulty.ratioToSuccess) {
 					this.turnEnd.successful = true;
 				}
@@ -127,10 +135,18 @@ public class Game : MonoBehaviour {
 		return this.turnEnd;
 	}
 
-	public bool IsGameEnd() {
-		bool turnsLimitReached = (this.totalScore.totalTurns >= 5);
-		bool outOfFollowers = (this.following.Size() <= 0);
-		return (turnsLimitReached || outOfFollowers);
+	public GameEndType IsGameEnd() {
+		if(this.following.Size() <= 0) {
+			this.gameEndType = GameEndType.NoFollowers;
+		}
+		else if(this.totalScore.totalTurns >= Difficulty.totalTurns) {
+			this.gameEndType = GameEndType.TurnLimitReached;
+		}
+		else {
+			this.gameEndType = GameEndType.NotYet;
+		}
+		
+		return this.gameEndType;
 	}
 
 	public void ResetTurn() {
@@ -138,15 +154,17 @@ public class Game : MonoBehaviour {
 			Game.Instance.FirstTurn();
 		}
 
-		this.currentRatio = 0.0f;
-		this.turnEnd = new TurnEnd();
-
+		this.totalScore.sumRatio += this.currentRatio;
 		this.totalScore.totalActionsPerformed += this.turnInfo.numActionsPerformed;
 		this.totalScore.totalActionsExpected += this.turnInfo.numActionsExpected;
 		++this.totalScore.totalTurns;
 
-		this.turnInfo.numActionsExpected = 6; // change
-		this.turnInfo.timeExpected = 5.0f; // change
+		this.currentRatio = 0.0f;
+		this.turnEnd = new TurnEnd();
+
+
+		this.turnInfo.numActionsExpected = Difficulty.NumActionsTurn(this.totalScore.totalTurns);
+		this.turnInfo.timeExpected = Difficulty.SecondsInTurn(this.totalScore.totalTurns);
 	
 		this.turnInfo.numActionsPerformed = 0;
 		this.turnInfo.timePerformed = 0.0f;
@@ -244,7 +262,27 @@ public class Game : MonoBehaviour {
 	}
 
 	private GameObject GetSummonBasedOnPoints() {
-		return this.summoner.summons[0];
+		GameObject chosenSummonObj = null;
+
+		if(this.gameEndType == GameEndType.NotYet) {
+			Debug.Log("game should not have ended.");
+			Debug.Break();
+			chosenSummonObj = null;
+		}
+
+		if(this.gameEndType == GameEndType.NoFollowers) {
+			chosenSummonObj = this.summoner.bad_summon;
+		} else if(this.gameEndType == GameEndType.TurnLimitReached) {
+			float bestRatio = this.totalScore.totalTurns * 1.0f;
+			float sumRatio = this.totalScore.sumRatio;
+
+			// if good
+			// else neutral
+
+			chosenSummonObj = this.summoner.neutral_summons[0];
+		}
+
+		return chosenSummonObj;
 	}
 
 	public void SetText(string str) {

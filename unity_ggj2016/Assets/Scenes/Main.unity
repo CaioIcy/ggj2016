@@ -343,8 +343,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 211c9b284ba877d46866524aeb3a0039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  summons:
-  - {fileID: 155206, guid: 3e593f026f729e94aaa9a8e693dc077a, type: 2}
+  good_summons:
+  - {fileID: 146544, guid: da251b965f2c2c246af73f469bfca25b, type: 2}
+  neutral_summons:
+  - {fileID: 144806, guid: f938c3cb43276474082d2706f4825ba8, type: 2}
+  bad_summon: {fileID: 194446, guid: 8fcedea452d126443b2a994505f4e09a, type: 2}
 --- !u!1 &736051821
 GameObject:
   m_ObjectHideFlags: 0
@@ -378,6 +381,7 @@ MonoBehaviour:
   currentRatio: 0
   summoner: {fileID: 0}
   stunned: 0
+  gameEndType: 0
   turnOver: 0
 --- !u!4 &736051823
 Transform:

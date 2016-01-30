@@ -14,4 +14,15 @@ public class Difficulty : MonoBehaviour {
 
 	public static float ratioToSuccess = 0.5f;
 	public static float stunDuration = 1.0f;
+	public static int totalTurns = 2;
+
+	public static int NumActionsTurn(int turnIdx) {
+		// implement me
+		return 1;
+	}
+
+	public static float SecondsInTurn(int turnIdx) {
+		// implement me
+		return 5.0f;
+	}
 }

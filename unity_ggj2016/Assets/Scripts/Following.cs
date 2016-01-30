@@ -40,6 +40,7 @@ public class Following : MonoBehaviour {
 		if(amount >= this.list.Count) {
 			Debug.Log("no more followers | gameover/go to summon");
 			Debug.Break();
+			return;
 		}
 
 		for(int i = 0; i < amount; ++i) {

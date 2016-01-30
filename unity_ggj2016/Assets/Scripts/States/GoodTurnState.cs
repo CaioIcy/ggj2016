@@ -4,8 +4,8 @@ using System.Collections;
 public class GoodTurnState : GameState {
 	public override void Enter() {
 		Debug.Log("enter good turn");
-		// play good animation
 		Game.Instance.following.Add(3);
+		// play good animation
 	}
 
 	public override void Exit() {
@@ -14,7 +14,7 @@ public class GoodTurnState : GameState {
 
 	public override void Update() {
 		if(IsDone()) {
-			if(Game.Instance.IsGameEnd()) {
+			if(Game.Instance.IsGameEnd() != GameEndType.NotYet) {
 				StateManager.Instance.ChangeGameState(GameStateId.Summon);
 			}
 			else {
@@ -24,7 +24,7 @@ public class GoodTurnState : GameState {
 	}
 
 	private bool IsDone() {
-		// implement me
+		// finished good turn animation
 		return true;
 	}
 }
