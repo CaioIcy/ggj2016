@@ -10,16 +10,16 @@ public class Player : MonoBehaviour {
 			// 	Debug.Log("inputting");
 			// }
 
-			if(Input.GetKeyDown(KeyCode.H)) {
+			if(Input.GetButtonDown("A_UP")) {
 				Game.Instance.ReceiveAction(Action.ButtonId.A);
-			}
-			else if(Input.GetKeyDown(KeyCode.J)) {
+			} else
+			  if(Input.GetButtonDown("B_LEFT")) {
 				Game.Instance.ReceiveAction(Action.ButtonId.B);
-			}
-			else if(Input.GetKeyDown(KeyCode.K)) {
+			} else
+			  if(Input.GetButtonDown("X_DOWN")) {
 				Game.Instance.ReceiveAction(Action.ButtonId.X);
-			}
-			else if(Input.GetKeyDown(KeyCode.L)) {
+			} else
+			  if(Input.GetButtonDown("Y_RIGHT")) {
 				Game.Instance.ReceiveAction(Action.ButtonId.Y);
 			}
 		}

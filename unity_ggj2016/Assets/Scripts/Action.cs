@@ -1,6 +1,10 @@
 public class Action {
 	public enum ButtonId : int {
-		A, B, X, Y
+		   A,
+		B, X, Y
+
+	//     ^,
+	//  <,\ /, >
 	};
 
 	public enum TypeId : int{
