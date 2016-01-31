@@ -7,11 +7,9 @@ public class BadTurnState : GameState {
 
 	public override void Enter() {
 		// Debug.Log("enter bad turn");
-		Game.Instance.following.Remove(3);
+		Game.Instance.following.Remove(Random.Range(1, 4));
 		// play bad animation
-		player = GameObject.FindWithTag("Player");
-		playerAnimator = player.GetComponent<Animator>();
-		playerAnimator.Play("bad turn");
+		Game.Instance.playerAnimator.Play("loser");
 	}
 
 	public override void Exit() {

@@ -7,11 +7,9 @@ public class GoodTurnState : GameState {
 
 	public override void Enter() {
 		// Debug.Log("enter good turn");
-		Game.Instance.following.Add(3);
+		Game.Instance.following.Add(Random.Range(1, 4));
 		// play good animation
-		player = GameObject.FindWithTag("Player");
-		playerAnimator = player.GetComponent<Animator>();
-		playerAnimator.Play("good turn");
+		Game.Instance.playerAnimator.Play("fever");
 	}
 
 	public override void Exit() {

@@ -64,6 +64,8 @@ public class Game : MonoBehaviour {
                 Game._instance.summoner = GameObject.FindWithTag("summoner").GetComponent<Summoner>();
                 Game._instance.defaultCameraSize = Camera.main.orthographicSize;
                 Game._instance.player = GameObject.FindWithTag("Player");
+                Game._instance.playerAnimator = Game._instance.player.GetComponent<Animator>();
+                Game._instance.playerAudio = Game._instance.player.GetComponent<AudioSource>();
 				Game._instance.player.SetActive(false);
             }  
             return Game._instance;
@@ -71,7 +73,11 @@ public class Game : MonoBehaviour {
     }
 
     public void Start() {
+    	// hack to start singleton instance before player deactivates
+    	// since we need to get the players gameobject by tag
+    	#pragma warning disable 219
 		Game a = Game.Instance;
+    	#pragma warning restore 219
     }
 
 	private bool shouldStateUpdate = false;
@@ -87,6 +93,8 @@ public class Game : MonoBehaviour {
 	public GameEndType gameEndType = GameEndType.NotYet;
 	public float defaultCameraSize = 0.0f;
 	public GameObject player;
+	public Animator playerAnimator;
+	public AudioSource playerAudio;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
@@ -199,6 +207,8 @@ public class Game : MonoBehaviour {
 			drawId = DrawId.MISS;
 			this.stunned = true;
 			this.SetText("MISS! STUNNED");
+			this.playerAnimator.Play("miss input");
+			this.player.GetComponent<Player>().PlayClip();
 		}
 		DrawButtons(drawId);
 	}

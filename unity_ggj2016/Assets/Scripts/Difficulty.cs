@@ -17,10 +17,11 @@ public class Difficulty : MonoBehaviour {
 	// ratiotoTurnSuccess >  0.5f __ harder
 	public static float ratioToTurnSuccess = 0.5f;
 
-	public static float ratioToGoodSummon = 0.8f;
+	public static float ratioToGoodSummon = 0.8f; // fever anim
+	public static float ratioToLoserAnim = 0.45f; // loser anim
 
 	public static float stunDuration = 1.0f;
-	public static int totalTurns = 10;
+	public static int totalTurns = Random.Range(8, 12);
 
 	public static int NumActionsTurn(int turnIdx) {
 		// turnIdx => 1..totalTurns
@@ -28,24 +29,19 @@ public class Difficulty : MonoBehaviour {
 		float turnRange = (float)turnIdx/(float)Difficulty.totalTurns;
 		
 		int max = 8;
-		// int min = 4;
 
  		if(turnRange > 1.0f - 1*0.125f) {
 			numActions = max;
 		} else if(turnRange > 1.0f - 2*0.125f) {
 			numActions = Random.Range(max-1, max);
 		} else if(turnRange > 1.0f - 3*0.125f) {
-			numActions = Random.Range(max-2, max);
-		} else if(turnRange > 1.0f - 4*0.125f) {
 			numActions = Random.Range(max-2, max-1);
-		} else if(turnRange > 1.0f - 5*0.125f) {
-			numActions = Random.Range(max-3, max);
-		} else if(turnRange > 1.0f - 6*0.125f) {
+		} else if(turnRange > 1.0f - 4*0.125f) {
 			numActions = Random.Range(max-3, max-1);
-		} else if(turnRange > 1.0f - 7*0.125f) {
-			numActions = Random.Range(max-4, max);
+		} else if(turnRange > 1.0f - 5*0.125f) {
+			numActions = Random.Range(max-3, max-2);
 		} else {
-			numActions = Random.Range(max-4, max-1);
+			numActions = Random.Range(max-4, max-3);
 		}
 
 		return numActions;

@@ -3,6 +3,20 @@ using System.Collections;
 
 public class Player : MonoBehaviour {
 
+	private AudioSource audioSource;
+	public AudioClip sfxMiss;
+
+	private void Awake() {
+		this.audioSource = GetComponent<AudioSource>();
+		this.audioSource.mute = true;
+		this.audioSource.clip = sfxMiss;
+	}
+
+	public void PlayClip() {
+		this.audioSource.mute = false;
+		this.audioSource.Play();
+	}
+
 	public void Update() {
 		if(Game.Instance.isPlayerTurn && !Game.Instance.stunned) {
 			Game.Instance.StopWaitForStunOver();
