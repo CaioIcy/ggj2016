@@ -277,6 +277,34 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 183708, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2301004, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 415108, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 415108, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 415108, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0.85
+      objectReference: {fileID: 0}
+    - target: {fileID: 415108, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 415108, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 2.5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8731f7fb3eb2487469f70e4267216e48, type: 2}
   m_IsPrefabParent: 0
@@ -466,7 +494,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
 --- !u!82 &857324769
 AudioSource:
   m_ObjectHideFlags: 0
