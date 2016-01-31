@@ -46,7 +46,6 @@ public enum GameEndType {
 	NotYet, NoFollowers, TurnLimitReached
 };
 
-
 public class Game : MonoBehaviour {
 
     // Singleton pattern implementation
@@ -289,9 +288,14 @@ public class Game : MonoBehaviour {
 
 	public void PlaySummonAnimation() {
 		this.playerAnimator.Play("summoning");
-		GameObject summonObj = this.GetSummonBasedOnPoints();
-		Instantiate(summonObj);
 	}
+
+	public void SummonCreature() {
+		GameObject summonObj = this.GetSummonBasedOnPoints();
+		Instantiate(summonObj);		
+	}
+
+	public bool goodSummon = false;
 
 	private GameObject GetSummonBasedOnPoints() {
 		GameObject chosenSummonObj = null;
@@ -313,7 +317,8 @@ public class Game : MonoBehaviour {
 			Debug.Log("sum ratio: " + sumRatio);
 			Debug.Log("sum success: " + sumRatioToSuccess);
 
-			if((sumRatio/bestRatio) > Difficulty.ratioToGoodSummon) {
+			this.goodSummon = (sumRatio/bestRatio) > Difficulty.ratioToGoodSummon;
+			if(this.goodSummon) {
 				chosenSummonObj = this.summoner.good_summons[0];
 			}
 			else {
@@ -327,5 +332,9 @@ public class Game : MonoBehaviour {
 	public void SetText(string str) {
 		// this.objUi.helpText.text = str;
 		// ►
+	}
+
+	public void ResetAll() {
+		// reset all game. new game, without restarting.
 	}
 }

@@ -2,6 +2,10 @@
 using System.Collections;
 
 public class SummonState : GameState {
+
+	private float summonTime = 1.5f;
+	private float timeSummoning = 0.0f;
+
 	public override void Enter() {
 		if(Game.Instance.gameEndType == GameEndType.NotYet) {
 			Debug.Log("game should not have ended");
@@ -14,17 +18,18 @@ public class SummonState : GameState {
 	}
 
 	public override void Exit() {
+		this.timeSummoning = 0.0f;
 	}
 
 	public override void Update() {
+		this.timeSummoning += Time.deltaTime;
+
 		if(IsDone()) {
 			StateManager.Instance.ChangeGameState(GameStateId.Summary);
 		}
 	}
 
 	private bool IsDone() {
-		// implement me
-		// done playing summon animation?
-		return false;
+		return (this.timeSummoning > this.summonTime);
 	}
 }

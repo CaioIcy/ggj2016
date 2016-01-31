@@ -20,8 +20,8 @@ public class Difficulty : MonoBehaviour {
 	public static float ratioToGoodSummon = 0.8f; // fever anim
 	public static float ratioToLoserAnim = 0.45f; // loser anim
 
-	public static float stunDuration = 1.0f;
-	public static int totalTurns = Random.Range(6, 12);
+	public static float stunDuration = 1.0f; // time per action \/
+	public static int totalTurns = 1;//Random.Range(6, 12);
 
 	public static int NumActionsTurn(int turnIdx) {
 		// turnIdx => 1..totalTurns
@@ -49,9 +49,11 @@ public class Difficulty : MonoBehaviour {
 
 	public static float SecondsInTurn(int numActions, int turnIdx) {
 		// turnIdx => 1..totalTurns
-		float turnModifier = (1.0f/(turnIdx*1.8f));
-		float timePerAction = 0.33f + turnModifier;
+		float turnModifier = (1.0f/(turnIdx*1.8f)) * 1.08f;
+		float timePerAction = 0.34f + turnModifier;
+		Difficulty.stunDuration = timePerAction;
 		float turnSeconds = timePerAction * numActions;
+
 
 		Debug.Log("tl-" + turnSeconds + " = " + timePerAction + " * " + numActions);
 

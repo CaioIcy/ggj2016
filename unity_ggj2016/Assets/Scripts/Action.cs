@@ -6,8 +6,4 @@ public class Action {
 	//     ^,
 	//  <,\ /, >
 	};
-
-	public enum TypeId : int{
-		ONE, THREE
-	};
 }
