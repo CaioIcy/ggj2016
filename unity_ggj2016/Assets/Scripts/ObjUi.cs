@@ -65,8 +65,8 @@ public class ObjUi : MonoBehaviour {
 		GameObject gObj_btn = Instantiate(obj_btn, pos, Quaternion.identity) as GameObject;
 
 		if(scaleDown) {
-			gObj_bg.transform.localScale  = new Vector3(0.7f, 0.7f, 1.0f);
-			gObj_btn.transform.localScale = new Vector3(0.55f, 0.55f, 1.0f);
+			gObj_bg.transform.localScale  = new Vector3(0.82f, 0.82f, 1.0f);
+			gObj_btn.transform.localScale = new Vector3(0.6f, 0.6f, 1.0f);
 		}
 
 		this.list.Add(gObj_bg);

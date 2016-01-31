@@ -4,7 +4,7 @@ using System.Collections;
 public class BadTurnState : GameState {
 	public override void Enter() {
 		// Debug.Log("enter bad turn");
-		Game.Instance.following.Remove(Random.Range(1, 4));
+		Game.Instance.following.Remove(Difficulty.FollowerLoss());
 		// play bad animation
 		Game.Instance.playerAnimator.Play("loser");
 	}

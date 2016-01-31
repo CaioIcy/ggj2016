@@ -16,6 +16,7 @@ public class SummaryState : GameState {
 		// good
 		else {
 			Game.Instance.playerAnimator.Play("victory");
+			Game.Instance.following.Add(Random.Range(8, 15));
 		}
 	}
 
@@ -25,12 +26,11 @@ public class SummaryState : GameState {
 	public override void Update() {
 		if(IsDone()) {
 			Game.Instance.ResetAll();
-			StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
+			// StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
 		}
 	}
 
 	private bool IsDone() {
-		// implement me
-		return false;
+		return Input.anyKeyDown;
 	}
 }

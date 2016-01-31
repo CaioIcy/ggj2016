@@ -4,7 +4,7 @@ using System.Collections;
 public class GoodTurnState : GameState {
 	public override void Enter() {
 		// Debug.Log("enter good turn");
-		Game.Instance.following.Add(Random.Range(1, 4));
+		Game.Instance.following.Add(Difficulty.FollowerGain());
 		// play good animation
 		Game.Instance.playerAnimator.Play("fever");
 	}

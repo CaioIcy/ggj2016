@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -233,12 +234,13 @@ public class Game : MonoBehaviour {
 			}
 			// completed buttons
 			else if (i < this.turnInfo.currentIdx){
-				this.objUi.Add(this.objUi.btn_bg_green, (Action.ButtonId)this.turnInfo.buttons[i], false, false);
+				this.objUi.Add(this.objUi.btn_bg_green, (Action.ButtonId)this.turnInfo.buttons[i], false, true);
 			}
-			// future buttons
+			// 4 future buttons
 			else if (i > this.turnInfo.currentIdx + 3){
 				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i], false, false);
 			}
+			// future buttons
 			else {
 				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
 			}
@@ -336,5 +338,6 @@ public class Game : MonoBehaviour {
 
 	public void ResetAll() {
 		// reset all game. new game, without restarting.
+		SceneManager.LoadScene("Main");
 	}
 }
