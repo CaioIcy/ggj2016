@@ -5,15 +5,14 @@ using System.Collections.Generic;
 
 public class Following : MonoBehaviour {
 
-	public GameObject pfbFollower_onLeft;
-	public GameObject pfbFollower_onRight;
+	public GameObject pfbFollower;
 	private List<GameObject> list = new List<GameObject>();
 	
 	public void Add(int amount) {
 		float y_min = -2.24f;
 		float y_max = -5.65f;
 
-		float x_min = 9.0f;
+		float x_min = 7.5f;
 		float x_max = 3.5f;
 
 		for(int i = 0; i < amount; ++i) {
@@ -24,14 +23,8 @@ public class Following : MonoBehaviour {
 				0.0f
 			);
 
-			GameObject gObj = null;
-			if(x_sign == -1) {
-				gObj = Instantiate(this.pfbFollower_onLeft, pos, Quaternion.identity) as GameObject;
-			}
-			else {
-				gObj = Instantiate(this.pfbFollower_onRight, pos, Quaternion.identity) as GameObject;				
-			}
-			// gObj.GetComponent<SpriteRenderer>().sortingOrder = (int) pos.y * (-1);
+			GameObject gObj = Instantiate(this.pfbFollower, pos, Quaternion.identity) as GameObject;
+			gObj.GetComponent<SpriteRenderer>().sortingOrder = (int) pos.y * (-1);
 			this.list.Add(gObj);
 		}
 	}

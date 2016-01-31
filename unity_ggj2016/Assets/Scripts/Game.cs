@@ -248,7 +248,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void FirstTurn() {
-		this.following.Add(6);
+		this.following.Add(Difficulty.startingFollowers);
 	}
 
 	public bool turnOver = false;

@@ -251,7 +251,7 @@ GameObject:
   - 4: {fileID: 474516}
   - 95: {fileID: 9506798}
   m_Layer: 0
-  m_Name: Follower
+  m_Name: bkFollower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
