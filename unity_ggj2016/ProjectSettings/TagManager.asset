@@ -9,6 +9,9 @@ TagManager:
   - summoner
   - circle_gui
   - circle_time
+  - pulpit
+  - sfx_good_summon
+  - sfx_bad_summon
   layers:
   - Default
   - TransparentFX

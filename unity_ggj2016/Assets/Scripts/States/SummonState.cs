@@ -15,6 +15,8 @@ public class SummonState : GameState {
 		Game.Instance.objUi.Clear();
 		Game.Instance.PlaySummonAnimation();
 		Game.Instance.SetText("summoning");
+
+		GameObject.FindWithTag("pulpit").GetComponent<AudioSource>().Play();
 	}
 
 	public override void Exit() {
