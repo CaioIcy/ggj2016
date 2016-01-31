@@ -2,6 +2,9 @@
 using System.Collections;
 
 public class SummaryState : GameState {
+
+	private bool isDone = false;
+
 	public override void Enter() {
 		Game.Instance.SummonCreature();
 		Game.Instance.gfxSummon.SetActive(false);
@@ -26,16 +29,29 @@ public class SummaryState : GameState {
 
 	public override void Exit() {
 	}
+	private float timetoAlbum = 3.5f;
+	private float timeSpent = 0.0f;
 
 	public override void Update() {
 		if(IsDone()) {
-			Game.Instance.ResetAll();
-			StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
+			timeSpent += Time.deltaTime;
+			if(timeSpent >= timetoAlbum) {
+				Game.Instance.ResetAll();
+				StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
+			}
+			else {
+				Game.Instance.fire1.SetActive(false);
+				Game.Instance.fire2.SetActive(false);
+				Game.Instance.album.SetActive(true);
+			}
 		}
 	}
 
 	private bool IsDone() {
-		return Input.anyKeyDown;
+		if(!isDone) {
+			isDone = Input.anyKeyDown;
+		}
+		return isDone;
 		// return false;
 	}
 }

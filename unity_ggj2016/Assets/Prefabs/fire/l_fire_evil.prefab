@@ -11,7 +11,7 @@ GameObject:
   - 95: {fileID: 9569658}
   m_Layer: 0
   m_Name: l_fire_evil
-  m_TagString: Untagged
+  m_TagString: fire1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

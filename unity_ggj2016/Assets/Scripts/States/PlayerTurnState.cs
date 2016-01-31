@@ -10,6 +10,8 @@ public enum TurnEndCheck {
 public class PlayerTurnState : GameState {
 
 	public override void Enter() {
+		Game.Instance.fire1.SetActive(true);
+		Game.Instance.fire2.SetActive(true);
 		Game.Instance.SetText("player turn");
 
 		// Reset

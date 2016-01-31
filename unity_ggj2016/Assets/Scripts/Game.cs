@@ -75,6 +75,12 @@ public class Game : MonoBehaviour {
 				Game._instance.splashGame.SetActive(false);
 				Game._instance.splashLogo = GameObject.FindWithTag("splash_logo");
 				Game._instance.splashLogo.SetActive(false);
+				Game._instance.album = GameObject.FindWithTag("album");
+				Game._instance.album.SetActive(false);
+				Game._instance.fire1 = GameObject.FindWithTag("fire1");
+				Game._instance.fire1.SetActive(false);
+				Game._instance.fire2 = GameObject.FindWithTag("fire2");
+				Game._instance.fire2.SetActive(false);
             }  
             return Game._instance;
         } 
@@ -108,6 +114,9 @@ public class Game : MonoBehaviour {
 	public GameObject gfxSummon;
 	public GameObject splashGame;
 	public GameObject splashLogo;
+	public GameObject album;
+	public GameObject fire1;
+	public GameObject fire2;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v

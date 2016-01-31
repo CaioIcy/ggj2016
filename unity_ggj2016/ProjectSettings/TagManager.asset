@@ -16,6 +16,9 @@ TagManager:
   - splash_game
   - splash_logo
   - splash_ggj
+  - album
+  - fire1
+  - fire2
   layers:
   - Default
   - TransparentFX
