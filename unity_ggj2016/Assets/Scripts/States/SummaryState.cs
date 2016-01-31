@@ -3,8 +3,8 @@ using System.Collections;
 
 public class SummaryState : GameState {
 	public override void Enter() {
-		Game.Instance.gfxSummon.SetActive(false);
 		Game.Instance.SummonCreature();
+		Game.Instance.gfxSummon.SetActive(false);
 
 		// bad
 		if(Game.Instance.gameEndType == GameEndType.NoFollowers) {
