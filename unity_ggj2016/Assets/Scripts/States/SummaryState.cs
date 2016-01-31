@@ -34,6 +34,7 @@ public class SummaryState : GameState {
 	}
 
 	private bool IsDone() {
-		return Input.anyKeyDown;
+		// return Input.anyKeyDown;
+		return false;
 	}
 }
