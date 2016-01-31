@@ -39,8 +39,8 @@ public class Following : MonoBehaviour {
 	public void Remove(int amount) {
 		if(amount >= this.list.Count) {
 			Debug.Log("no more followers | gameover/go to summon");
-			Debug.Break();
-			return;
+			// Debug.Break();
+			// return;
 		}
 
 		for(int i = 0; i < amount; ++i) {

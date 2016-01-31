@@ -29,7 +29,7 @@ public class ObjUi : MonoBehaviour {
 		cloudObj = Instantiate(img_cloud) as GameObject;
 	}
 
-	public void Add(GameObject obj_bg, Action.ButtonId btn, bool stun=false) {
+	public void Add(GameObject obj_bg, Action.ButtonId btn, bool stun=false, bool scaleDown=false) {
 		GameObject obj_btn = null;
 		switch(btn) {
 			case Action.ButtonId.A:
@@ -49,13 +49,25 @@ public class ObjUi : MonoBehaviour {
 				Debug.Break();
 				break;
 		}
+
+		float posOffset = (this.list.Count/2)*1.2f + 5;
+		if(scaleDown) {
+			// posOffset = (this.list.Count/2)*0.8f + 5;
+		}
+
 		Vector3 pos = new Vector3(
-			this.transform.position.x + (this.list.Count/2)*1.2f + 5,
+			this.transform.position.x + posOffset,
 			this.transform.position.y,
 			this.transform.position.z
 		);
+
 		GameObject gObj_bg = Instantiate(obj_bg, pos, Quaternion.identity) as GameObject;
 		GameObject gObj_btn = Instantiate(obj_btn, pos, Quaternion.identity) as GameObject;
+
+		if(scaleDown) {
+			gObj_bg.transform.localScale  = new Vector3(0.7f, 0.7f, 1.0f);
+			gObj_btn.transform.localScale = new Vector3(0.55f, 0.55f, 1.0f);
+		}
 
 		this.list.Add(gObj_bg);
 		this.list.Add(gObj_btn);

@@ -61,6 +61,7 @@ public class Game : MonoBehaviour {
                 Game._instance.following = GameObject.FindWithTag("following").GetComponent<Following>();
                 Game._instance.shouldStateUpdate = true;
                 Game._instance.summoner = GameObject.FindWithTag("summoner").GetComponent<Summoner>();
+                Game._instance.defaultCameraSize = Camera.main.orthographicSize;
             }  
             return Game._instance;
         } 
@@ -77,6 +78,7 @@ public class Game : MonoBehaviour {
 	public Summoner summoner;
 	public bool stunned = false;
 	public GameEndType gameEndType = GameEndType.NotYet;
+	public float defaultCameraSize = 0.0f;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
@@ -113,12 +115,13 @@ public class Game : MonoBehaviour {
 				}
 				ratioBottom *= Difficulty.ratioModifier;
 
-				currentRatio = ratioTop / ratioBottom;
+				this.currentRatio = ratioTop / ratioBottom;
+				this.totalScore.sumRatio += this.currentRatio;
 
-				// Debug.Log("e." + EEE + " -- p." + PPP + " -- c." + CCC);
-				// Debug.Log("ratio: " + currentRatio + " = " + ratioTop + " / " + ratioBottom);
-				Debug.Log("ratio: " + currentRatio);
-				if(currentRatio > Difficulty.ratioToSuccess) {
+				// Debug.Log("e." + EEE + " -- p; + PPP + " -- c." + CCC);
+				// Debug.Log("ratio: " + this.currentRatio + " = " + ratioTop + " / " + ratioBottom);
+				Debug.Log("ratio: " + this.currentRatio);
+				if(this.currentRatio > Difficulty.ratioToTurnSuccess) {
 					this.turnEnd.successful = true;
 				}
 				break;
@@ -154,7 +157,6 @@ public class Game : MonoBehaviour {
 			Game.Instance.FirstTurn();
 		}
 
-		this.totalScore.sumRatio += this.currentRatio;
 		this.totalScore.totalActionsPerformed += this.turnInfo.numActionsPerformed;
 		this.totalScore.totalActionsExpected += this.turnInfo.numActionsExpected;
 		++this.totalScore.totalTurns;
@@ -162,9 +164,9 @@ public class Game : MonoBehaviour {
 		this.currentRatio = 0.0f;
 		this.turnEnd = new TurnEnd();
 
-
 		this.turnInfo.numActionsExpected = Difficulty.NumActionsTurn(this.totalScore.totalTurns);
-		this.turnInfo.timeExpected = Difficulty.SecondsInTurn(this.totalScore.totalTurns);
+		this.turnInfo.timeExpected = Difficulty.SecondsInTurn(this.turnInfo.numActionsExpected,
+				this.totalScore.totalTurns);
 	
 		this.turnInfo.numActionsPerformed = 0;
 		this.turnInfo.timePerformed = 0.0f;
@@ -198,6 +200,7 @@ public class Game : MonoBehaviour {
 		this.objUi.Begin();
 
 		for(int i = 0; i < this.turnInfo.buttons.Count; ++i) {
+			// current button
 			if(i == this.turnInfo.currentIdx) {
 				if(drawId == DrawId.MISS) {
 					this.objUi.Add(this.objUi.btn_bg_red, (Action.ButtonId)this.turnInfo.buttons[i], true);
@@ -206,10 +209,15 @@ public class Game : MonoBehaviour {
 					this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
 				}
 			}
+			// completed buttons
 			else if (i < this.turnInfo.currentIdx){
-				this.objUi.Add(this.objUi.btn_bg_green, (Action.ButtonId)this.turnInfo.buttons[i]);
+				this.objUi.Add(this.objUi.btn_bg_green, (Action.ButtonId)this.turnInfo.buttons[i], false, false);
 			}
-			else if (i > this.turnInfo.currentIdx){
+			// future buttons
+			else if (i > this.turnInfo.currentIdx + 3){
+				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i], false, false);
+			}
+			else {
 				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
 			}
 		}
@@ -275,11 +283,20 @@ public class Game : MonoBehaviour {
 		} else if(this.gameEndType == GameEndType.TurnLimitReached) {
 			float bestRatio = this.totalScore.totalTurns * 1.0f;
 			float sumRatio = this.totalScore.sumRatio;
+			float sumRatioToSuccess = this.totalScore.totalTurns * Difficulty.ratioToTurnSuccess;
 
-			// if good
+			Debug.Log("best possible: " + bestRatio);
+			Debug.Log("sum ratio: " + sumRatio);
+			Debug.Log("sum success: " + sumRatioToSuccess);
+
+			if((sumRatio/bestRatio) > Difficulty.ratioToGoodSummon) {
+				chosenSummonObj = this.summoner.good_summons[0];
+			}
+			else {
+				chosenSummonObj = this.summoner.neutral_summons[0];
+			}
 			// else neutral
 
-			chosenSummonObj = this.summoner.neutral_summons[0];
 		}
 
 		return chosenSummonObj;

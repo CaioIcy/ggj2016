@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GoodTurnState : GameState {
 	public override void Enter() {
-		Debug.Log("enter good turn");
+		// Debug.Log("enter good turn");
 		Game.Instance.following.Add(3);
 		// play good animation
 	}

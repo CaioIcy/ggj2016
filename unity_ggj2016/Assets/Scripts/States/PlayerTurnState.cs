@@ -28,7 +28,6 @@ public class PlayerTurnState : GameState {
 		// Draw actions
 		Game.Instance.DrawButtons(DrawId.NEUTRAL);
 		Game.Instance.isPlayerTurn = true;
-		Debug.Log("enter player turn with " + Game.Instance.following.Size() + " followers");
 	}
 
 	public override void Exit() {
@@ -39,7 +38,9 @@ public class PlayerTurnState : GameState {
 	}
 
 	public override void Update() {
-		Game.Instance.turnInfo.timePerformed += Time.deltaTime;
+		if(Game.Instance.isPlayerTurn) {
+			Game.Instance.turnInfo.timePerformed += Time.deltaTime;
+		}
 
 		TurnEndCheck tec = GetTurnEndCheck();
 		if(tec != TurnEndCheck.NotYet) {
@@ -53,10 +54,12 @@ public class PlayerTurnState : GameState {
 
 		// idx == and not <=, because it gets incremented one last time
 		if(idx == expected) {
+			// Debug.Log("COMPLETED");
 			return TurnEndCheck.CompletedActions;
 		}
 
 		if(Game.Instance.turnInfo.timePerformed >= Game.Instance.turnInfo.timeExpected) {
+			// Debug.Log("OUT OF TIME");
 			return TurnEndCheck.OutOfTime;
 		}
 
