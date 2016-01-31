@@ -45,7 +45,7 @@ ModelImporter:
     400034: sadeye_left
     400036: sadeye_right
     400038: //RootNode
-    7400000: Take 001
+    7400000: fever
     9500000: //RootNode
   materials:
     importMaterials: 1
@@ -67,7 +67,75 @@ ModelImporter:
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: fever
+      takeName: Take 001
+      firstFrame: 1
+      lastFrame: 89
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: root
+        weight: 1
+      - path: root/body1
+        weight: 1
+      - path: root/body1/body2
+        weight: 1
+      - path: root/body1/body2/Arm_left_1
+        weight: 1
+      - path: root/body1/body2/Arm_left_1/arm_left_2
+        weight: 1
+      - path: root/body1/body2/arm_right_1
+        weight: 1
+      - path: root/body1/body2/arm_right_1/arm_right_2
+        weight: 1
+      - path: root/body1/body2/head_1
+        weight: 1
+      - path: root/body1/body2/head_1/head_2
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/evilshine_left
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/evilshine_right
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_bad
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_bad/badeye_left
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_bad/badeye_right
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_bad/badmouth
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_sad
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_sad/sad_mouth
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_sad/sadeye_left
+        weight: 1
+      - path: root/body1/body2/head_1/head_2/face_sad/sadeye_right
+        weight: 1
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 1
     isReadable: 1
   meshes:
     lODScreenPercentages: []
