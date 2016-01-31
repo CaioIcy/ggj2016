@@ -8,18 +8,12 @@ public enum DrawId {
 };
 
 public class ObjUi : MonoBehaviour {
-	public Text helpText;
 
-	public GameObject btn_bg_black;
-	public GameObject btn_bg_green;
-	public GameObject btn_bg_red;
-	public GameObject btn_a;
-	public GameObject btn_b;
-	public GameObject btn_x;
-	public GameObject btn_y;
-	public GameObject btn_stunned;
+	public Text helpText;
+	public GameObject btn_2_green;
+	public GameObject btn_2_gray;
+	public GameObject btn_2_red;
 	public GameObject img_cloud;
-	public float btn_size = 0.0f;
 
 	private List<GameObject> list = new List<GameObject>();
 	private GameObject stunObj = null;
@@ -29,20 +23,32 @@ public class ObjUi : MonoBehaviour {
 		cloudObj = Instantiate(img_cloud) as GameObject;
 	}
 
-	public void Add(GameObject obj_bg, Action.ButtonId btn, bool stun=false, bool scaleDown=false) {
+	public void Add(Action.ButtonId btn, bool stun=false, bool done=false) {
 		GameObject obj_btn = null;
+		if(done) {
+			obj_btn = btn_2_green;
+		}
+		else if(stun) {
+			obj_btn = btn_2_red;
+		}
+		else {
+			obj_btn = btn_2_gray;
+		}
+
+		float rot = 0.0f;
+
 		switch(btn) {
 			case Action.ButtonId.A:
-				obj_btn = btn_a;
+				rot = 90.0f;
 				break;
 			case Action.ButtonId.B:
-				obj_btn = btn_b;
+				rot = 180.0f;
 				break;
 			case Action.ButtonId.X:
-				obj_btn = btn_x;
+				rot = 270.0f;
 				break;
 			case Action.ButtonId.Y:
-				obj_btn = btn_y;
+				rot = 0.0f;
 				break;
 			default:
 				Debug.Log("btn should be from Action.ButtonId");
@@ -50,31 +56,31 @@ public class ObjUi : MonoBehaviour {
 				break;
 		}
 
-		float posOffset = (this.list.Count/2)*1.2f + 5;
-		if(scaleDown) {
+		float posOffset = (this.list.Count)*0.93f + 5;
+		if(done) {
 			// posOffset = (this.list.Count/2)*0.8f + 5;
+		}
+
+		float y = this.transform.position.y;
+		if(this.list.Count == 0 || this.list.Count > 4) {
+			y -= 0.4f;
+		}
+		else {
+			y += 0.1f;
 		}
 
 		Vector3 pos = new Vector3(
 			this.transform.position.x + posOffset,
-			this.transform.position.y,
+			y,
 			this.transform.position.z
 		);
 
-		GameObject gObj_bg = Instantiate(obj_bg, pos, Quaternion.identity) as GameObject;
-		GameObject gObj_btn = Instantiate(obj_btn, pos, Quaternion.identity) as GameObject;
+		Quaternion quaternion = Quaternion.identity;
+		quaternion = Quaternion.AngleAxis(rot, Vector3.forward);
 
-		if(scaleDown) {
-			gObj_bg.transform.localScale  = new Vector3(0.82f, 0.82f, 1.0f);
-			gObj_btn.transform.localScale = new Vector3(0.6f, 0.6f, 1.0f);
-		}
+		GameObject gObj_btn = Instantiate(obj_btn, pos, quaternion) as GameObject;
 
-		this.list.Add(gObj_bg);
 		this.list.Add(gObj_btn);
-
-		if(stun) {
-			stunObj = Instantiate(btn_stunned, pos, Quaternion.identity) as GameObject;
-		}
 	}
 
 	public void Clear() {

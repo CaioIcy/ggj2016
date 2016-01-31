@@ -226,23 +226,23 @@ public class Game : MonoBehaviour {
 			// current button
 			if(i == this.turnInfo.currentIdx) {
 				if(drawId == DrawId.MISS) {
-					this.objUi.Add(this.objUi.btn_bg_red, (Action.ButtonId)this.turnInfo.buttons[i], true);
+					this.objUi.Add((Action.ButtonId)this.turnInfo.buttons[i], true);
 				}
 				else {
-					this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
+					this.objUi.Add((Action.ButtonId)this.turnInfo.buttons[i]);
 				}
 			}
 			// completed buttons
 			else if (i < this.turnInfo.currentIdx){
-				this.objUi.Add(this.objUi.btn_bg_green, (Action.ButtonId)this.turnInfo.buttons[i], false, true);
+				this.objUi.Add((Action.ButtonId)this.turnInfo.buttons[i], false, true);
 			}
 			// 4 future buttons
 			else if (i > this.turnInfo.currentIdx + 3){
-				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i], false, false);
+				this.objUi.Add((Action.ButtonId)this.turnInfo.buttons[i], false, false);
 			}
 			// future buttons
 			else {
-				this.objUi.Add(this.objUi.btn_bg_black, (Action.ButtonId)this.turnInfo.buttons[i]);
+				this.objUi.Add((Action.ButtonId)this.turnInfo.buttons[i]);
 			}
 		}
 	}
