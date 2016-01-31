@@ -16,19 +16,30 @@ public class TitleScreenState : GameState {
 	public override void Enter() {
 		Debug.Log("enter title screen");
 		Game.Instance.following.Clear();
+		Game.Instance.objUi.Clear();
 		Game.Instance.splashGame.SetActive(true);
 	}
 
 	public override void Exit() {
 		Camera.main.orthographicSize = Game.Instance.defaultCameraSize;
 		Game.Instance.player.SetActive(true);
+
+		timeToSplashGame = 3.0f;
+		timeToSplashOniric = 3.5f;
+		timeSpent = 0.0f;
+		onGameSplash = true;
+		doneSplashing = false;
+		zoomIn = 3.0f;
+		speed = 4.0f;
+		keyPressed = false;
+
 	}
 
 	public override void Update() {
 		timeSpent += Time.deltaTime;
 		if(!doneSplashing) {
 			if(onGameSplash) {
-				if(timeSpent >= timeToSplashGame) {
+				if(timeSpent >= timeToSplashGame || Input.anyKeyDown) {
 					timeSpent = 0.0f;
 					onGameSplash = false;
 					Game.Instance.splashGame.SetActive(false);
@@ -36,7 +47,7 @@ public class TitleScreenState : GameState {
 				}
 			}
 			else {
-				if(timeSpent >= timeToSplashOniric) {
+				if(timeSpent >= timeToSplashOniric || Input.anyKeyDown) {
 					doneSplashing = true;
 					Camera.main.orthographicSize -= zoomIn;
 					Game.Instance.splashLogo.SetActive(false);
@@ -53,14 +64,7 @@ public class TitleScreenState : GameState {
 				speed -= 0.5f;
 			}
 
-			Debug.Log("1 " +Camera.main.orthographicSize);
-			// Camera.main.orthographicSize = Mathf.Lerp(
-			// 	Game.Instance.defaultCameraSize - zoomIn,
-			// 	Game.Instance.defaultCameraSize,
-			// 	Time.time / speed
-			// );
 			Camera.main.orthographicSize += 0.03f;
-			Debug.Log("2 "+Camera.main.orthographicSize);
 			if(Camera.main.orthographicSize >= Game.Instance.defaultCameraSize) {
 				StateManager.Instance.ChangeGameState(GameStateId.PlayerTurn);
 			}

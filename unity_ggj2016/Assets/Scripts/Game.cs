@@ -55,7 +55,6 @@ public class Game : MonoBehaviour {
     public static Game Instance { 
         get {
             if (Game._instance == null) {
-            	Debug.Log("instance");
             	GameObject obj = new GameObject();
                 Game._instance = obj.AddComponent<Game>();
                 Game._instance.objUi = GameObject.FindWithTag("objui").GetComponent<ObjUi>();
@@ -348,5 +347,6 @@ public class Game : MonoBehaviour {
 	public void ResetAll() {
 		// reset all game. new game, without restarting.
 		SceneManager.LoadScene("Main");
+		
 	}
 }

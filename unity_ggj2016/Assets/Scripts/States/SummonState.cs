@@ -22,6 +22,7 @@ public class SummonState : GameState {
 
 	public override void Exit() {
 		this.timeSummoning = 0.0f;
+		summonTime = 2.0f;
 	}
 
 	public override void Update() {

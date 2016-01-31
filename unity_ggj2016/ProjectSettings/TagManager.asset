@@ -15,6 +15,7 @@ TagManager:
   - gfx_summon
   - splash_game
   - splash_logo
+  - splash_ggj
   layers:
   - Default
   - TransparentFX

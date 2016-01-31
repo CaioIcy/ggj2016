@@ -30,12 +30,12 @@ public class SummaryState : GameState {
 	public override void Update() {
 		if(IsDone()) {
 			Game.Instance.ResetAll();
-			// StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
+			StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
 		}
 	}
 
 	private bool IsDone() {
-		// return Input.anyKeyDown;
-		return false;
+		return Input.anyKeyDown;
+		// return false;
 	}
 }
