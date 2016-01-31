@@ -28,7 +28,7 @@ public class Difficulty : MonoBehaviour {
 		float turnRange = (float)turnIdx/(float)Difficulty.totalTurns;
 		
 		int max = 8;
-		int min = 4;
+		// int min = 4;
 
  		if(turnRange > 1.0f - 1*0.125f) {
 			numActions = max;

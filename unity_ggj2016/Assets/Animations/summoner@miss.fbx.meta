@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: bd2830ec48920e44ab24fedf06028a90
-timeCreated: 1454212695
+guid: 04e7ed0e78f3f4f43a08ceb3233dabf2
+timeCreated: 1454212983
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -25,7 +25,6 @@ ModelImporter:
     100034: sadeye_left
     100036: sadeye_right
     100038: //RootNode
-    100040: summoner
     400000: Arm_left_1
     400002: arm_left_2
     400004: arm_right_1
@@ -46,10 +45,8 @@ ModelImporter:
     400034: sadeye_left
     400036: sadeye_right
     400038: //RootNode
-    400040: summoner
-    4300000: summoner
+    7400000: Take 001
     9500000: //RootNode
-    13700000: summoner
   materials:
     importMaterials: 1
     materialName: 0

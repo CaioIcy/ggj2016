@@ -55,6 +55,7 @@ public class Game : MonoBehaviour {
     public static Game Instance { 
         get {
             if (Game._instance == null) {
+            	Debug.Log("instance");
             	GameObject obj = new GameObject();
                 Game._instance = obj.AddComponent<Game>();
                 Game._instance.objUi = GameObject.FindWithTag("objui").GetComponent<ObjUi>();
@@ -62,9 +63,15 @@ public class Game : MonoBehaviour {
                 Game._instance.shouldStateUpdate = true;
                 Game._instance.summoner = GameObject.FindWithTag("summoner").GetComponent<Summoner>();
                 Game._instance.defaultCameraSize = Camera.main.orthographicSize;
+                Game._instance.player = GameObject.FindWithTag("Player");
+				Game._instance.player.SetActive(false);
             }  
             return Game._instance;
         } 
+    }
+
+    public void Start() {
+		Game a = Game.Instance;
     }
 
 	private bool shouldStateUpdate = false;
@@ -79,6 +86,7 @@ public class Game : MonoBehaviour {
 	public bool stunned = false;
 	public GameEndType gameEndType = GameEndType.NotYet;
 	public float defaultCameraSize = 0.0f;
+	public GameObject player;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v

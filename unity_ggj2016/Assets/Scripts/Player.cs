@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class Player : MonoBehaviour {
+
 	public void Update() {
 		if(Game.Instance.isPlayerTurn && !Game.Instance.stunned) {
 			Game.Instance.StopWaitForStunOver();

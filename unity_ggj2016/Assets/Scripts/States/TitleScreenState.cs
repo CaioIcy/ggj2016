@@ -8,14 +8,14 @@ public class TitleScreenState : GameState {
 	private bool keyPressed = false;
 
 	public override void Enter() {
-		// Debug.Log("enter title");
+		Debug.Log("enter title screen");
 		Game.Instance.following.Clear();
 		Camera.main.orthographicSize -= zoomIn;
 	}
 
 	public override void Exit() {
-		// Debug.Log("exit title");
 		Camera.main.orthographicSize = Game.Instance.defaultCameraSize;
+		Game.Instance.player.SetActive(true);
 	}
 
 	public override void Update() {
