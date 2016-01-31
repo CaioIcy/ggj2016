@@ -6,7 +6,7 @@ public class GoodTurnState : GameState {
 		// Debug.Log("enter good turn");
 		Game.Instance.following.Add(Difficulty.FollowerGain());
 		// play good animation
-		Game.Instance.playerAnimator.Play("fever");
+		// Game.Instance.playerAnimator.Play("fever");
 	}
 
 	public override void Exit() {

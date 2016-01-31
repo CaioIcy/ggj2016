@@ -31,7 +31,7 @@ public class Following : MonoBehaviour {
 			else {
 				gObj = Instantiate(this.pfbFollower_onRight, pos, Quaternion.identity) as GameObject;				
 			}
-			gObj.GetComponent<SpriteRenderer>().sortingOrder = (int) pos.y * (-1);
+			// gObj.GetComponent<SpriteRenderer>().sortingOrder = (int) pos.y * (-1);
 			this.list.Add(gObj);
 		}
 	}
