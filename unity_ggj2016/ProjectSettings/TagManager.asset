@@ -7,6 +7,8 @@ TagManager:
   - objui
   - following
   - summoner
+  - circle_gui
+  - circle_time
   layers:
   - Default
   - TransparentFX

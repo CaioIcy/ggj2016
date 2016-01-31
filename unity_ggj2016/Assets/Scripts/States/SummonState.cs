@@ -3,13 +3,12 @@ using System.Collections;
 
 public class SummonState : GameState {
 	public override void Enter() {
-		Debug.Log("enter summon");
-
 		if(Game.Instance.gameEndType == GameEndType.NotYet) {
 			Debug.Log("game should not have ended");
 			Debug.Break();
 		}
 
+		Game.Instance.objUi.Clear();
 		Game.Instance.PlaySummonAnimation();
 		Game.Instance.SetText("summoning");
 	}

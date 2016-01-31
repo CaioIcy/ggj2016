@@ -21,7 +21,7 @@ public class Difficulty : MonoBehaviour {
 	public static float ratioToLoserAnim = 0.45f; // loser anim
 
 	public static float stunDuration = 1.0f;
-	public static int totalTurns = Random.Range(8, 12);
+	public static int totalTurns = Random.Range(6, 12);
 
 	public static int NumActionsTurn(int turnIdx) {
 		// turnIdx => 1..totalTurns

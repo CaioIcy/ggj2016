@@ -67,6 +67,9 @@ public class Game : MonoBehaviour {
                 Game._instance.playerAnimator = Game._instance.player.GetComponent<Animator>();
                 Game._instance.playerAudio = Game._instance.player.GetComponent<AudioSource>();
 				Game._instance.player.SetActive(false);
+				Game._instance.circleGuiObj = GameObject.FindWithTag("circle_gui");
+				Game._instance.circleGuiProgress = GameObject.FindWithTag("circle_time").GetComponent<CiclularProgress>();
+				Game._instance.circleGuiObj.SetActive(false);
             }  
             return Game._instance;
         } 
@@ -95,6 +98,8 @@ public class Game : MonoBehaviour {
 	public GameObject player;
 	public Animator playerAnimator;
 	public AudioSource playerAudio;
+	public GameObject circleGuiObj;
+	public CiclularProgress circleGuiProgress;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
@@ -283,6 +288,7 @@ public class Game : MonoBehaviour {
 	}
 
 	public void PlaySummonAnimation() {
+		this.playerAnimator.Play("summoning");
 		GameObject summonObj = this.GetSummonBasedOnPoints();
 		Instantiate(summonObj);
 	}

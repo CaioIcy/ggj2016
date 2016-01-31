@@ -21,10 +21,6 @@ public class Player : MonoBehaviour {
 		if(Game.Instance.isPlayerTurn && !Game.Instance.stunned) {
 			Game.Instance.StopWaitForStunOver();
 
-			// if(AnyActionKey()) {
-			// 	Debug.Log("inputting");
-			// }
-
 			if(Input.GetButtonDown("A_UP")) {
 				Game.Instance.ReceiveAction(Action.ButtonId.A);
 			} else

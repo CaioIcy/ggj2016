@@ -28,6 +28,9 @@ public class PlayerTurnState : GameState {
 		// Draw actions
 		Game.Instance.DrawButtons(DrawId.NEUTRAL);
 		Game.Instance.isPlayerTurn = true;
+
+		Game.Instance.circleGuiObj.SetActive(true);
+		Game.Instance.circleGuiProgress.Reset(Game.Instance.turnInfo.timeExpected);
 	}
 
 	public override void Exit() {
@@ -67,6 +70,7 @@ public class PlayerTurnState : GameState {
 	}
 
 	private void EndTheTurn(TurnEndCheck tec) {
+		Game.Instance.circleGuiObj.SetActive(false);
 		Game.Instance.TriggerWaitForTurnOver();
 		if(!Game.Instance.turnOver) {
 			Game.Instance.StopWaitForStunOver();
