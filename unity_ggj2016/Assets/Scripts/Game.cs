@@ -295,14 +295,13 @@ public class Game : MonoBehaviour {
 			else {
 				chosenSummonObj = this.summoner.neutral_summons[0];
 			}
-			// else neutral
-
 		}
 
 		return chosenSummonObj;
 	}
 
 	public void SetText(string str) {
-		this.objUi.helpText.text = str;
+		// this.objUi.helpText.text = str;
+		// ►
 	}
 }

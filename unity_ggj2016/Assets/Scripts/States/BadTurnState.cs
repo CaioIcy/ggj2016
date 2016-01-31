@@ -2,10 +2,16 @@
 using System.Collections;
 
 public class BadTurnState : GameState {
+	private GameObject player;
+	private Animator playerAnimator;
+
 	public override void Enter() {
 		// Debug.Log("enter bad turn");
 		Game.Instance.following.Remove(3);
 		// play bad animation
+		player = GameObject.FindWithTag("Player");
+		playerAnimator = player.GetComponent<Animator>();
+		playerAnimator.Play("bad turn");
 	}
 
 	public override void Exit() {
