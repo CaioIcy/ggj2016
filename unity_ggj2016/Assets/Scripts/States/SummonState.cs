@@ -3,7 +3,7 @@ using System.Collections;
 
 public class SummonState : GameState {
 
-	private float summonTime = 1.5f;
+	private float summonTime = 2.0f;
 	private float timeSummoning = 0.0f;
 
 	public override void Enter() {
@@ -13,6 +13,7 @@ public class SummonState : GameState {
 		}
 
 		Game.Instance.objUi.Clear();
+		Game.Instance.gfxSummon.SetActive(true);
 		Game.Instance.PlaySummonAnimation();
 		Game.Instance.SetText("summoning");
 

@@ -12,6 +12,7 @@ TagManager:
   - pulpit
   - sfx_good_summon
   - sfx_bad_summon
+  - gfx_summon
   layers:
   - Default
   - TransparentFX

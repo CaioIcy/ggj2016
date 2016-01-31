@@ -70,6 +70,8 @@ public class Game : MonoBehaviour {
 				Game._instance.circleGuiObj = GameObject.FindWithTag("circle_gui");
 				Game._instance.circleGuiProgress = GameObject.FindWithTag("circle_time").GetComponent<CiclularProgress>();
 				Game._instance.circleGuiObj.SetActive(false);
+				Game._instance.gfxSummon = GameObject.FindWithTag("gfx_summon");
+				Game._instance.gfxSummon.SetActive(false);
             }  
             return Game._instance;
         } 
@@ -100,6 +102,7 @@ public class Game : MonoBehaviour {
 	public AudioSource playerAudio;
 	public GameObject circleGuiObj;
 	public CiclularProgress circleGuiProgress;
+	public GameObject gfxSummon;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
