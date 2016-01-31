@@ -13,6 +13,8 @@ TagManager:
   - sfx_good_summon
   - sfx_bad_summon
   - gfx_summon
+  - splash_game
+  - splash_logo
   layers:
   - Default
   - TransparentFX

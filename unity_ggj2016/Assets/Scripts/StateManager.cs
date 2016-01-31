@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
  
 public enum GameStateId {
+	OniricSplash,
 	TitleScreen, PlayerTurn,
 	GoodTurn, BadTurn,
 	Summon, Finished,
@@ -37,6 +38,7 @@ public class StateManager {
 	private void Build() {
 		this.stateMap = new Dictionary<GameStateId, GameState>();
 
+		this.stateMap.Add(GameStateId.OniricSplash, new OniricSplashState());
 		this.stateMap.Add(GameStateId.TitleScreen, new TitleScreenState());
 		this.stateMap.Add(GameStateId.PlayerTurn, new PlayerTurnState());
 		this.stateMap.Add(GameStateId.GoodTurn, new GoodTurnState());
@@ -45,6 +47,7 @@ public class StateManager {
 		this.stateMap.Add(GameStateId.Summary, new SummaryState());
 
 		this.gameState = this.stateMap[GameStateId.TitleScreen];
+		// this.gameState = this.stateMap[GameStateId.OniricSplash];
 		this.gameState.Enter();
 	}
 

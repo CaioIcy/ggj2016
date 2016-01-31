@@ -72,6 +72,10 @@ public class Game : MonoBehaviour {
 				Game._instance.circleGuiObj.SetActive(false);
 				Game._instance.gfxSummon = GameObject.FindWithTag("gfx_summon");
 				Game._instance.gfxSummon.SetActive(false);
+				Game._instance.splashGame = GameObject.FindWithTag("splash_game");
+				Game._instance.splashGame.SetActive(false);
+				Game._instance.splashLogo = GameObject.FindWithTag("splash_logo");
+				Game._instance.splashLogo.SetActive(false);
             }  
             return Game._instance;
         } 
@@ -103,6 +107,8 @@ public class Game : MonoBehaviour {
 	public GameObject circleGuiObj;
 	public CiclularProgress circleGuiProgress;
 	public GameObject gfxSummon;
+	public GameObject splashGame;
+	public GameObject splashLogo;
 
 	private void Update () {
 		// due to the singleton, there are two updates for game running :v
