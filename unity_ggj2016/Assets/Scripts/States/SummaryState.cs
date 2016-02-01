@@ -1,9 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class SummaryState : GameState {
 
 	private bool isDone = false;
+	private AsyncOperation ao = null;
+	private float timetoAlbum = 3.5f;
+	private float timeSpent = 0.0f;
 
 	public override void Enter() {
 		Game.Instance.SummonCreature();
@@ -28,16 +32,25 @@ public class SummaryState : GameState {
 	}
 
 	public override void Exit() {
+		isDone = false;
+		ao = null;
+		timeSpent = 0.0f;
 	}
-	private float timetoAlbum = 3.5f;
-	private float timeSpent = 0.0f;
 
 	public override void Update() {
 		if(IsDone()) {
 			timeSpent += Time.deltaTime;
 			if(timeSpent >= timetoAlbum) {
-				Game.Instance.ResetAll();
-				StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
+				if(ao == null) {
+					ao = SceneManager.LoadSceneAsync("Main");
+				}
+				else {
+					if(ao.isDone) {
+						Debug.Log("scene restarted");
+						StateManager.Instance.ChangeGameState(GameStateId.TitleScreen);
+					}
+				}
+
 			}
 			else {
 				Game.Instance.fire1.SetActive(false);

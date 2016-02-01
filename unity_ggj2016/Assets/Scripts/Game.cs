@@ -352,10 +352,4 @@ public class Game : MonoBehaviour {
 		// this.objUi.helpText.text = str;
 		// ►
 	}
-
-	public void ResetAll() {
-		// reset all game. new game, without restarting.
-		SceneManager.LoadScene("Main");
-		
-	}
 }
