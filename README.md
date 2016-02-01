@@ -16,6 +16,6 @@ Eduardo Zolhof - Music, Sound Effects
 
 ##### Notes
 
-This code will not be maintained! See [Game.cs](ggj2016/blob/master/unity_ggj2016/Assets/Scripts/Game.cs) to understand why ( ͡° ͜ʖ ͡°)
+This code will not be maintained! See [Game.cs](unity_ggj2016/Assets/Scripts/Game.cs) to understand why ( ͡° ͜ʖ ͡°)
 
 [GGJ_PAGE]:(http://globalgamejam.org/2016/games/summonerish)
